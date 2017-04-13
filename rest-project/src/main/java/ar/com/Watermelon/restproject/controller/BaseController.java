@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.data.envers.repository.support.EnversRevisionRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-public abstract class BaseController <S extends EnversRevisionRepository<E, Long, Integer>, E>{
+public abstract class BaseController <S extends CrudRepository<E, Long>, E>{
 
 
 	protected abstract S getService();
@@ -34,9 +34,20 @@ public abstract class BaseController <S extends EnversRevisionRepository<E, Long
 	}
 
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody String delete(@PathVariable Long id){
+		
+		try{
+			getService().delete(id);
+		}catch(Exception e){
+			return "Error: " + e.getMessage();
+		}
+		return "OK";
+	}
+	
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public E entry(@PathVariable Long id) {
+	public @ResponseBody E entry(@PathVariable Long id) {
 		return getService().findOne(id);
 	}
 
