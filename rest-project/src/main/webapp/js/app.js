@@ -13,11 +13,6 @@ app.config(function($routeProvider, $httpProvider) {
 		templateUrl : 'views/clientes-busqueda.html',
 		controller : 'BuscarclienteController'
 
-	            }).when('/clientes/listado', {
-
-		templateUrl : 'views/clientes-listado.html',
-		controller : 'ListadoclienteController'
-
 	            }).when('/clientes/:clientid/busqueda', {
 
 		templateUrl : 'views/clientes-mostrar.html',
@@ -36,12 +31,7 @@ app.config(function($routeProvider, $httpProvider) {
 		templateUrl : 'views/vehiculos-busqueda.html',
 		controller : 'BuscarvehiculoController'
 
-	            }).when('/vehiculos/listado', {
-
-		templateUrl : 'views/vehiculos-listado.html',
-		controller : 'ListadovehiculoController'
-
-	            }).when('/vehiculos/:vehiculoid/busqueda', {
+	            }).when('/vehiculos/:carid/busqueda', {
 
 		templateUrl : 'views/vehiculos-mostrar.html',
 		controller : 'VehiculoController'

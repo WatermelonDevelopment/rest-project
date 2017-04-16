@@ -22,36 +22,41 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <form method="get" class="form-horizontal">
+
+                <div class="alert {{ alert.type }}" ng-show="alert.show">
+                    {{ alert.message }} <a class="alert-link" href="./#!/{{ alert.link }}">{{ alert.text }}</a>
+                </div>
+
+                <form class="form-horizontal" ng-submit="create()">
                     <div class="form-group">
                         
                         <label class="col-sm-2 control-label">Número</label>
                         <div class="col-sm-4">
-                            <p class="form-control-static">312939812</p>
+                            <p class="form-control-static">{{ car.id }}</p>
                         </div>
 
                         <label class="col-sm-2 control-label">Fecha de Ingreso</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="car.fechaDeIngreso">
                          </div>
                     </div>
 
                     <div class="form-group">           
                         <label class="col-sm-2 control-label">Marca</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="car.marca">
                         </div>
 
                         <label class="col-sm-2 control-label">Modelo</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="car.modelo">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Patente</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="car.patente">
                         </div>
                     </div>
 
@@ -60,8 +65,7 @@
                         <div class="col-sm-8">
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-white" type="submit">Cancelar</button>
-                            <button class="btn btn-primary" type="submit">Guardar</button>
+                            <button class="btn btn-primary" type="submit">Crear</button>
                         </div>
                     </div>
                 </form>
