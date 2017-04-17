@@ -41,23 +41,18 @@ app.config(function($routeProvider, $httpProvider) {
 
 	            }).when('/empleados/nuevo', {
 
-		templateUrl : 'views/empleados-nuevo.html',
-		controller : 'NuevoempleadoController'
+	        		templateUrl : 'views/empleados-nuevo.html',
+	        		controller : 'NuevoempleadoController'
 
-				}).when('/empleados/buscar', {
+	        	}).when('/empleados/buscar', {
 
-		templateUrl : 'views/empleados-busqueda.html',
-		controller : 'BuscarempleadoController'
+	        		templateUrl : 'views/empleados-busqueda.html',
+	        		controller : 'BuscarempleadoController'
 
-				}).when('/empleados/listado', {
+	        	}).when('/empleados/:employeid/busqueda', {
 
-		templateUrl : 'views/empleados-listado.html',
-		controller : 'ListadoempleadoController'
-
-				}).when('/empleados/:empleadoid/busqueda', {
-
-		templateUrl : 'views/empleados-mostrar.html',
-		controller : 'EmpleadoController'
+	        		templateUrl : 'views/empleados-mostrar.html',
+	        		controller : 'EmpleadoController'
 
 	            });
 

@@ -251,15 +251,15 @@
 
     });
 
-    app.controller('empleadoController', function($scope, $http, $routeParams) {
+    app.controller('EmpleadoController', function($scope, $http, $routeParams) {
 
-        $carid = $routeParams.carid;
+        $employeid = $routeParams.employeid;
         $scope.alert = { show: false };
         $scope.employe = {};
 
         $scope.init = function () {
 
-            $http.get("/empleado/" + $carid)
+            $http.get("/empleado/" + $employeid)
                 .then(function (response) {
                     console.log (response);
                     $scope.employe = response.data;
@@ -276,7 +276,7 @@
 
                     $scope.alert = { show: true, 
                                      type: "alert-success", 
-                                     message: "empleado actualizado correctamente.", 
+                                     message: "Empleado actualizado correctamente.", 
                                      link: "empleados/buscar", 
                                      text: "Ver listado"
                                    };
