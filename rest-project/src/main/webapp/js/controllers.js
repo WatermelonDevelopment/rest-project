@@ -193,22 +193,95 @@
 
 
 /// EMPLEADOS CONTROLLERS
-    app.controller('NuevoempleadoController', function($scope) {
+    app.controller('NuevoempleadoController', function($scope, $http) {
+        
+        $scope.alert = { show: false };
+        $scope.employe = {};
+
+        $scope.create = function() {
+
+            $http.post("/empleado/", $scope.employe)
+                .then(function (response) {
+                    console.log (response);
+                    $scope.employe = response.data;
+
+                    $scope.alert = { show: true, 
+                                     type: "alert-success", 
+                                     message: "Empleado creado correctamente con el numero "+ $scope.employe.id +".", 
+                                     link: "empleados/" + $scope.employe.id + "/busqueda", 
+                                     text: "Ver empleado"
+                                   };
+                });    
+
+        }
+
+    });
+
+    app.controller('BuscarempleadoController', function($scope, $http) {
+
+        $scope.searchParams = {};
+        $scope.employes = {};
+        $scope.firstSearchDefault = true;
+
+        $scope.init = function () {
+
+            $http.get("/empleado/")
+                .then(function (response) {
+                    console.log (response);
+                    $scope.employes = response.data;
+                });    
+
+        }
+
+        $scope.search = function() {
+
+            $http.post("https://www.w3schools.com/angular/customers_mysql.php", searchParams)
+                .then(function (response) {
+                    console.log (response);
+                    $scope.customers = response.data.records;
+                });    
+
+        }
+
+        $scope.clearResults = function() {
+            //$scope.customers = null;
+            $scope.firstSearchDefault = false;
+        }
 
 
     });
 
-    app.controller('BuscarempleadoController', function($scope) {
+    app.controller('empleadoController', function($scope, $http, $routeParams) {
 
+        $carid = $routeParams.carid;
+        $scope.alert = { show: false };
+        $scope.employe = {};
 
-    });
+        $scope.init = function () {
 
-    app.controller('ListadoempleadoController', function($scope) {
+            $http.get("/empleado/" + $carid)
+                .then(function (response) {
+                    console.log (response);
+                    $scope.employe = response.data;
+                });    
 
+        }
 
-    });
+        $scope.save = function() {
 
-    app.controller('EmpleadoController', function($scope, $routeParams) {
-        $scope.empleadoid = $routeParams.empleadoid
+            $http.post("/empleado/", $scope.employe)
+                .then(function (response) {
+                    console.log (response);
+                    $scope.employe = response.data;
+
+                    $scope.alert = { show: true, 
+                                     type: "alert-success", 
+                                     message: "empleado actualizado correctamente.", 
+                                     link: "empleados/buscar", 
+                                     text: "Ver listado"
+                                   };
+                });    
+
+        }
     });
 /// EMPLEADOS CONTROLLERS
