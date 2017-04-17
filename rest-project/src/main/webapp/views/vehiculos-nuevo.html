@@ -37,26 +37,26 @@
 
                         <label class="col-sm-2 control-label">Fecha de Ingreso</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="car.fechaDeIngreso">
+                            <input type="text" class="form-control" ng-model="car.fechaDeIngreso" ng-disabled="car.id">
                          </div>
                     </div>
 
                     <div class="form-group">           
                         <label class="col-sm-2 control-label">Marca</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="car.marca">
+                            <input type="text" class="form-control" ng-model="car.marca" ng-disabled="car.id">
                         </div>
 
                         <label class="col-sm-2 control-label">Modelo</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="car.modelo">
+                            <input type="text" class="form-control" ng-model="car.modelo" ng-disabled="car.id">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Patente</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="car.patente">
+                            <input type="text" class="form-control" ng-model="car.patente" ng-disabled="car.id">
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@
                         <div class="col-sm-8">
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-primary" type="submit">Crear</button>
+                            <button class="btn btn-primary" type="submit" ng-disabled="car.id">Crear</button>
                         </div>
                     </div>
                 </form>

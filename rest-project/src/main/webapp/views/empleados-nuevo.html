@@ -37,7 +37,7 @@
 
                         <label class="col-sm-2 control-label">Fecha de Ingreso</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="employe.fechaIngreso">
+                            <input type="text" class="form-control" ng-model="employe.fechaIngreso" ng-disabled="employe.id">
                          </div>
                     </div>
 
@@ -45,12 +45,12 @@
                         
                         <label class="col-sm-2 control-label">Nombre</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="employe.nombre">
+                            <input type="text" class="form-control" ng-model="employe.nombre" ng-disabled="employe.id">
                         </div>
 
                         <label class="col-sm-2 control-label">Apellido</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="employe.apellido">
+                            <input type="text" class="form-control" ng-model="employe.apellido" ng-disabled="employe.id">
                         </div>
                     </div>
 
@@ -58,12 +58,12 @@
                         
                         <label class="col-sm-2 control-label">Telefono</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="employe.telefono">
+                            <input type="text" class="form-control" ng-model="employe.telefono" ng-disabled="employe.id">
                         </div>
                         
                         <label class="col-sm-2 control-label">Celular</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="employe.celular">
+                            <input type="text" class="form-control" ng-model="employe.celular" ng-disabled="employe.id">
                         </div>
                         
 					</div>
@@ -72,7 +72,7 @@
 					
                         <label class="col-sm-2 control-label">Domicilio</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="employe.domicilio">
+                            <input type="text" class="form-control" ng-model="employe.domicilio" ng-disabled="employe.id">
                          </div>
                     </div>
                    
@@ -81,7 +81,7 @@
                         <div class="col-sm-8">
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-primary" type="submit">Crear</button>
+                            <button class="btn btn-primary" type="submit" ng-disabled="employe.id">Crear</button>
                         </div>
                     </div>
                 </form>
