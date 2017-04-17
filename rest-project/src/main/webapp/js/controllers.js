@@ -8,7 +8,7 @@
 
         $scope.create = function() {
 
-            $http.post("http://localhost:8089/cliente/", $scope.customer)
+            $http.post("/cliente/", $scope.customer)
                 .then(function (response) {
                     console.log (response);
                     $scope.customer = response.data;
@@ -33,7 +33,7 @@
 
         $scope.init = function () {
 
-            $http.get("http://localhost:8089/cliente/")
+            $http.get("/cliente/")
                 .then(function (response) {
                     console.log (response);
                     $scope.customers = response.data;
@@ -67,7 +67,7 @@
 
         $scope.init = function () {
 
-            $http.get("http://localhost:8089/cliente/" + $customerid)
+            $http.get("/cliente/" + $customerid)
                 .then(function (response) {
                     console.log (response);
                     $scope.customer = response.data;
@@ -77,7 +77,7 @@
 
         $scope.save = function() {
 
-            $http.post("http://localhost:8089/cliente/", $scope.customer)
+            $http.post("/cliente/", $scope.customer)
                 .then(function (response) {
                     console.log (response);
                     $scope.customer = response.data;
@@ -104,7 +104,7 @@
 
         $scope.create = function() {
 
-            $http.post("http://localhost:8089/vehiculo/", $scope.car)
+            $http.post("/vehiculo/", $scope.car)
                 .then(function (response) {
                     console.log (response);
                     $scope.car = response.data;
@@ -129,7 +129,7 @@
 
         $scope.init = function () {
 
-            $http.get("http://localhost:8089/vehiculo/")
+            $http.get("/vehiculo/")
                 .then(function (response) {
                     console.log (response);
                     $scope.cars = response.data;
@@ -163,7 +163,7 @@
 
         $scope.init = function () {
 
-            $http.get("http://localhost:8089/vehiculo/" + $carid)
+            $http.get("/vehiculo/" + $carid)
                 .then(function (response) {
                     console.log (response);
                     $scope.car = response.data;
@@ -173,7 +173,7 @@
 
         $scope.save = function() {
 
-            $http.post("http://localhost:8089/vehiculo/", $scope.car)
+            $http.post("/vehiculo/", $scope.car)
                 .then(function (response) {
                     console.log (response);
                     $scope.car = response.data;
