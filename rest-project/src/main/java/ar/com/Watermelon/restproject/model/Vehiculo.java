@@ -4,9 +4,21 @@ package ar.com.Watermelon.restproject.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+import org.hibernate.envers.Audited;
+@Audited
 @Entity
 public class Vehiculo {
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	@Id
 	@GeneratedValue
 	private long id;
@@ -14,7 +26,8 @@ public class Vehiculo {
 	private String marca;
 	private String modelo;
 	private String fechaDeIngreso;
-	
+	@ManyToOne
+	private Cliente cliente;
 	
 	public long getId() {
 		return id;

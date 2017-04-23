@@ -18,6 +18,18 @@ public class ClienteController extends BaseController<ClienteDao, Cliente>{
 	protected ClienteDao getService() {
 		return clienteDao;
 	}
+	
+//	public String filter(Cliente c) {
+//		String q = "Select * from clientes where nombre like '%"+ c.getNombre() + "%'";
+//		return null;
+//	}
+	
+	public void filter(String nombre, String apellido) {
+		 
+		
+	    
+	    
+	}
 
 	
 

@@ -1,9 +1,14 @@
 package ar.com.Watermelon.restproject.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+import org.hibernate.envers.Audited;
+@Audited
 @Entity
 public class Cliente {
 
@@ -15,7 +20,8 @@ public class Cliente {
 	private String telefono;
 	private String domicilio;
 	private String fechaIngreso;
-//	private List<Vehiculo> vehiculos;
+	@OneToMany(mappedBy= "cliente")
+	private List<Vehiculo> vehiculos;
 	
 	public long getId() {
 		return id;
