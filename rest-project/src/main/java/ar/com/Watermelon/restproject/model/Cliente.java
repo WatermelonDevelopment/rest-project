@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.envers.Audited;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Audited
 @Entity
 public class Cliente {
@@ -23,6 +25,14 @@ public class Cliente {
 	@OneToMany(mappedBy= "cliente")
 	private List<Vehiculo> vehiculos;
 	
+	public List<Vehiculo> getVehiculos() {
+		return vehiculos;
+	}
+
+	public void setVehiculos(List<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+
 	public long getId() {
 		return id;
 	}
