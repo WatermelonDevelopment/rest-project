@@ -22,17 +22,7 @@ public class Cliente {
 	private String telefono;
 	private String domicilio;
 	private String fechaIngreso;
-	@OneToMany(mappedBy= "cliente")
-	private List<Vehiculo> vehiculos;
-	
-	public List<Vehiculo> getVehiculos() {
-		return vehiculos;
-	}
-
-	public void setVehiculos(List<Vehiculo> vehiculos) {
-		this.vehiculos = vehiculos;
-	}
-
+		
 	public long getId() {
 		return id;
 	}
