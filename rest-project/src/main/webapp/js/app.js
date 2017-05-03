@@ -1,6 +1,30 @@
 //Dentro de app.js:
 var app = angular.module('taller', ['ngRoute']);
 
+app.factory('DateTimeService', function() {
+	
+    var date = new Date(); 
+    var day = date.getDate()
+    var month = date.getMonth()+1;
+    day = day < 10 ? '0'+day : day;
+    month = month < 10 ? '0'+month : month;
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
+	var ampm = hours >= 12 ? 'pm' : 'am';
+	hours = hours % 12;
+	hours = hours ? hours : 12; // the hour '0' should be '12'
+	minutes = minutes < 10 ? '0'+minutes : minutes;
+	var strTime = hours + ':' + minutes + ' ' + ampm;
+	
+	var dateTime = day + "/" + month + "/" + date.getFullYear() + " " + strTime;
+	
+	return {
+	   'date' : day + "/" + month + "/" + date.getFullYear(),
+	   'hour' : strTime,
+	   'datetime' : dateTime
+	};
+});
+
 app.config(function($routeProvider, $httpProvider) {
 	
 	// Loading
@@ -42,7 +66,7 @@ app.config(function($routeProvider, $httpProvider) {
 
 
 
-	            }).when('/vehiculos/nuevo', {
+	            }).when('/vehiculos/:customerid/nuevo', {
 			
 					templateUrl : 'views/vehiculos-nuevo.html',
 					controller : 'NuevovehiculoController'

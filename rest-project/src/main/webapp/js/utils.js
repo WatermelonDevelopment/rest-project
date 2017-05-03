@@ -1,14 +1,8 @@
 
 function showSpinner(){
-	
-	$("#_loaderNode").show();
-	
+	$("#_loaderNode").show();	
 }
 
 function hideSpinner(){
-
-	setTimeout(function() {
-		$("#_loaderNode").hide();
-	}, 3000);
-
+	$("#_loaderNode").hide();
 }
