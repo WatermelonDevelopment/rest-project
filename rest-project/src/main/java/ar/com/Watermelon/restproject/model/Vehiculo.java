@@ -27,8 +27,8 @@ public class Vehiculo {
 	private String marca;
 	private String modelo;
 	private String fechaDeIngreso;
-	@ManyToOne
 	@JsonIgnore
+	@ManyToOne
 	private Cliente cliente;
 	
 	public long getId() {
