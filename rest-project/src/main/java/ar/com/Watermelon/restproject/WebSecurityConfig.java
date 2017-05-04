@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.stereotype.Component;
 
 import ar.com.Watermelon.restproject.dao.UsuarioDao;
@@ -43,8 +44,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		http.authorizeRequests().antMatchers("/operadores/**").hasAnyRole(CustomUserDetailsService.ROLE_ADMINISTRADOR, CustomUserDetailsService.ROLE_OPERADOR);
 //		http.authorizeRequests().antMatchers("/administradores/**").hasRole(CustomUserDetailsService.ROLE_ADMINISTRADOR);
 //		http.authorizeRequests().antMatchers("/clientes/**").hasAnyRole(CustomUserDetailsService.ROLE_ADMINISTRADOR, CustomUserDetailsService.ROLE_OPERADOR);
+		http
+		   .headers()
+		       .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
 		
-
 		SecurityConfigurer<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter = new XAuthTokenConfigurer(
 				userDetailsServiceBean());
 		http.apply(securityConfigurerAdapter);

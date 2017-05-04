@@ -65,11 +65,15 @@
 		</dependency>
 
 
+<!-- 		<dependency> -->
+<!-- 			<groupId>mysql</groupId> -->
+<!-- 			<artifactId>mysql-connector-java</artifactId> -->
+<!-- 		</dependency> -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        
 		<dependency>
 			<groupId>com.ganyo</groupId>
 			<artifactId>gcm-server</artifactId>
