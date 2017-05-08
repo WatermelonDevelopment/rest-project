@@ -1,15 +1,10 @@
 package ar.com.Watermelon.restproject.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import org.hibernate.envers.Audited;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Audited
 @Entity
 public class Cliente {
