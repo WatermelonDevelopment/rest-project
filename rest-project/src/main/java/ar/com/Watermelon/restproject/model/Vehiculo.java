@@ -27,7 +27,7 @@ public class Vehiculo {
 	private String marca;
 	private String modelo;
 	private String fechaDeIngreso;
-	@JsonIgnore
+
 	@ManyToOne
 	private Cliente cliente;
 	

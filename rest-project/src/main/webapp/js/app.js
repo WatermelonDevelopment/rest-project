@@ -62,7 +62,11 @@ app.config(function($routeProvider, $httpProvider) {
 			
 					templateUrl : 'views/clientes-mostrar.html',
 					controller : 'ClienteController'
-
+						
+	            }).when('/clientes/:clientid/vehiculos', {
+	    			
+					templateUrl : 'views/clientes-vehiculos.html',
+					controller : 'ClientevehiculosController'
 
 
 

@@ -129,6 +129,7 @@
         $customerid = $routeParams.clientid;
         $scope.alert = { show: false };
         $scope.customer = {};
+        $scope.cars = {};
 
         $scope.init = function () {
 
@@ -137,6 +138,13 @@
                     console.log (response);
                     $scope.customer = response.data;
                 });    
+            
+            $http.get("/cliente/" + $customerid + "/vehiculos")
+	            .then(function (response) {
+	                console.log (response);
+	                $scope.cars = response.data;
+	            });    
+            
 
         }
 
@@ -156,6 +164,75 @@
                 });    
 
         }
+        
+        $scope.cardelete = function (vehiculo) {
+        	
+        	var r = confirm('Esta seguro que desea eliminar el vehiculo?');
+
+        	if (r == true) {
+        		$.ajax({
+        		    url: '/vehiculo/' + vehiculo.id,
+        		    type: 'DELETE',
+        		    success: function(response) {
+        		        // Do something with the result
+        		    	console.log (response);
+        		    	$scope.init();
+        		    }
+        		});
+	            /*$http.delete("/empleado/" + empleado.id)
+	                .then(function (response) {
+	                    console.log (response);
+	                    $scope.init();
+	                });
+	           */
+        	}
+        	
+        }
+        
+    });
+    
+    app.controller('ClientevehiculosController', function($scope, $http, $routeParams, DateTimeService) {
+        
+        $customerid = $routeParams.clientid;
+        $scope.alert = { show: false };
+        $scope.customer = {};
+        $scope.car = {};
+
+        $scope.init = function () {
+
+        	$scope.car.fechaDeIngreso = DateTimeService.datetime
+//            $http.get("/vehiculo/" + $carid)
+//                .then(function (response) {
+//                    console.log (response);
+//                    $scope.car = response.data;
+//                });    
+        	
+            $http.get("/cliente/" + $customerid)
+	            .then(function (response) {
+	                console.log (response);
+	                $scope.customer = response.data;
+	            });   
+
+        }
+
+        $scope.create = function() {
+
+        	$scope.car.cliente = $scope.customer;
+            $http.post("/vehiculo/", $scope.car)
+                .then(function (response) {
+                    console.log (response);
+                    $scope.car = response.data;
+
+                    $scope.alert = { show: true, 
+                                     type: "alert-success", 
+                                     message: "Vehiculo creado correctamente.", 
+                                     link: "clientes/" + $scope.customer.id + "/busqueda", 
+                                     text: "Ver cliente"
+                                   };
+                });    
+
+        }
+        
     });
 /// CLIENTE CONTROLLERS
 
@@ -305,8 +382,8 @@
                     $scope.alert = { show: true, 
                                      type: "alert-success", 
                                      message: "Vehiculo actualizado correctamente.", 
-                                     link: "vehiculos/buscar", 
-                                     text: "Ver listado"
+                                     link: "clientes/" + $scope.car.cliente.id + "/busqueda", 
+                                     text: "Ver cliente"
                                    };
                 });    
 

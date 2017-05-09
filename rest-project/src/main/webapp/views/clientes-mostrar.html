@@ -119,19 +119,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="x in customer.vehiculos">
+                        <tr ng-repeat="x in cars">
                             <td>{{ x.id }}</td>
                             <td>{{ x.fechaDeIngreso }}</td>
                             <td>{{ x.marca }}</td>
                             <td>{{ x.modelo }}</td>
                             <td>{{ x.patente }}</td>
                             <td><a href="./#!/vehiculos/{{ x.id }}/busqueda">Editar</a></td>
-                            <td><a ng-click="delete(x)">Borrar</a></td>
+                            <td><a ng-click="cardelete(x)">Borrar</a></td>
                         </tr>
                     </tbody>
                 </table>
                 
-			   	<button class="btn btn-primary pull-right" type="submit">Agregar</button>
+			   	<a href="./#!/clientes/{{ customer.id }}/vehiculos">
+			   		<button class="btn btn-primary pull-right">Agregar</button>
+			   	</a>
 			   	<br clear="all" />
 
             </div>
