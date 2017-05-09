@@ -3,6 +3,7 @@ package ar.com.Watermelon.restproject.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cochera {
@@ -13,7 +14,9 @@ public class Cochera {
 	private int numero;
 	private int planta;
 	private String espacio;
+	@OneToOne
 	private Vehiculo vehiculo;
+	@OneToOne
 	private Categoria categoria;
 
 	public int getId() {
