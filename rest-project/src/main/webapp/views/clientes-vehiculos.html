@@ -68,6 +68,25 @@
                             <input type="text" class="form-control" ng-model="car.patente" ng-disabled="car.id">
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                    
+                        <label class="col-sm-2 control-label">Categoria</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="car.categoria" ng-disabled="car.id">
+								<option value="1">Liviano</option>
+								<option value="2">Pesado</option>
+							</select>
+                        </div>
+                    
+                        <label class="col-sm-2 control-label">Cochera</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="car.cochera" ng-disabled="car.id">
+								<option value="1">PISO 1 - C14</option>
+								<option value="2">PB - C19</option>
+							</select>
+                        </div>
+                    </div>
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">

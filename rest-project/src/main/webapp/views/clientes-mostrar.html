@@ -114,6 +114,8 @@
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th>Patente</th>
+                            <th>Cochera</th>
+                            <th>Subtotal</th>
                             <th>Modificar</th>
                             <th>Eliminar</th>
                         </tr>
@@ -125,6 +127,8 @@
                             <td>{{ x.marca }}</td>
                             <td>{{ x.modelo }}</td>
                             <td>{{ x.patente }}</td>
+                            <td>PISO 1 - C14</td>
+                            <td>$1.300</td>
                             <td><a href="./#!/vehiculos/{{ x.id }}/busqueda">Editar</a></td>
                             <td><a ng-click="cardelete(x)">Borrar</a></td>
                         </tr>
@@ -134,6 +138,133 @@
 			   	<a href="./#!/clientes/{{ customer.id }}/vehiculos">
 			   		<button class="btn btn-primary pull-right">Agregar</button>
 			   	</a>
+			   	<br clear="all" />
+
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Descuentos <small></small></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#">Config option 1</a>
+                        </li>
+                        <li><a href="#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+        
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha de Carga</th>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>15/05/2017</td>
+                            <td>PORTENCUAL</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>15/05/2017</td>
+                            <td>FIJO</td>
+                            <td>$ 100</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+			   	<a href="./#!/clientes/{{ customer.id }}/descuentos">
+			   		<button class="btn btn-primary pull-right">Agregar</button>
+			   	</a>
+			   	<br clear="all" />
+
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Cuotas <small></small></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#">Config option 1</a>
+                        </li>
+                        <li><a href="#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+        
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha de Carga</th>
+                            <th>Valor</th>
+                            <th>Detalle</th>
+                            <th>Estado</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>01/04/2017</td>
+                            <td>$ 2300</td>
+                            <td><a href="./#!/vehiculos/{{ x.id }}/busqueda">Ver</a></td>
+                            <th>Paga</th>
+                            <th>-</th>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>01/05/2017</td>
+                            <td>$ 2300</td>
+                            <td><a href="./#!/vehiculos/{{ x.id }}/busqueda">Ver</a></td>
+                            <th>Impaga</th>
+                            <td><a href="./#!/vehiculos/{{ x.id }}/busqueda">Pagar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
 			   	<br clear="all" />
 
             </div>
