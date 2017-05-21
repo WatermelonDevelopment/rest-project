@@ -2,9 +2,16 @@ package ar.com.Watermelon.restproject.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+@Entity
 public class Liquidacion {
+	@Id
+	@GeneratedValue
 	private long id;
-	
+	@ManyToOne
 	private Cliente cliente;
 	private String fecha; //AAAAmm
 	private float monto;
