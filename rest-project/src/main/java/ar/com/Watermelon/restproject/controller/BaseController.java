@@ -79,13 +79,14 @@ public abstract class BaseController <S extends BaseDao<E> , E>{
 			Specifications<E> spec = null;
 			
 			for(Entry<String,String> e : params.entrySet()) {
-				
-				MySpecification<E> tmp = new MySpecification<E>(new SearchCriteria(e.getKey(),":",e.getValue()));
-				
-				if(spec == null){
-					spec = Specifications.where(tmp);
-				}else{
-					spec = spec.and(tmp);
+				if(e.getKey() != "") {
+					MySpecification<E> tmp = new MySpecification<E>(new SearchCriteria(e.getKey(),":",e.getValue()));
+					
+					if(spec == null){
+						spec = Specifications.where(tmp);
+					}else{
+						spec = spec.and(tmp);
+					} 
 				}
 			}
 			
