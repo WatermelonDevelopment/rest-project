@@ -5,11 +5,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.Watermelon.restproject.model.Cliente;
 import ar.com.Watermelon.restproject.model.Cochera;
+import ar.com.Watermelon.restproject.model.Vehiculo;
 
 @Transactional
 public interface CocheraDao extends BaseDao<Cochera> {
 	
-	@Query("select sum(c.categoria.precio) from Cochera c where c.vehiculo.cliente = ?1")
+	
+	Cochera findOneByVehiculo(Vehiculo vehiculo);
+	
+	@Query("select sum(c.categoria.precio) from Cochera c where c.vehiculo.cliente = :cliente")
 	float findAllCocherasByCliente(Cliente cliente);
 	
 }
