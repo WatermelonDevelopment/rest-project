@@ -58,11 +58,16 @@ app.config(function($routeProvider, $httpProvider) {
 					templateUrl : 'views/clientes-busqueda.html',
 					controller : 'BuscarclienteController'
 
-	            }).when('/clientes/:clientid/busqueda', {
+	            }).when('/clientes/:clientid/mostrar', {
 			
 					templateUrl : 'views/clientes-mostrar.html',
 					controller : 'ClienteController'
 						
+	            }).when('/clientes/:clientid/modificar', {
+	    			
+					templateUrl : 'views/clientes-modificar.html',
+					controller : 'ClientemodificarController'
+				
 	            }).when('/clientes/:clientid/vehiculos', {
 	    			
 					templateUrl : 'views/clientes-vehiculos.html',

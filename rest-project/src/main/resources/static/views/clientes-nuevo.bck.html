@@ -27,7 +27,7 @@
                     {{ alert.message }} <a class="alert-link" href="./#!/{{ alert.link }}">{{ alert.text }}</a>
                 </div>
 
-                <form name="customerForm" id="customerForm" class="form-horizontal" ng-submit="create()" novalidate>
+                <form id="customerForm" class="form-horizontal" ng-submit="create()">
                     <div class="form-group">
                         
                         <label class="col-sm-2 control-label">Número</label>
@@ -37,19 +37,20 @@
 
                         <label class="col-sm-2 control-label">Fecha de Ingreso</label>
                         <div class="col-sm-4">
-                         	<p class="form-control-static">{{ customer.fechaIngreso }}</p>
+                            <input type="text" class="form-control" ng-model="customer.fechaIngreso" ng-disabled="customer.id">
                          </div>
                     </div>
 
                     <div class="form-group">
+                        
                         <label class="col-sm-2 control-label">Nombre</label>
-                        <div class="col-sm-4" ng-class="(!customerForm.nombre.$valid && customerForm.nombre.$dirty)  ? 'has-error' : ''">
-                            <input name="nombre" type="text" class="form-control" ng-model="customer.nombre" ng-disabled="customer.id" required>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" ng-model="customer.nombre" ng-disabled="customer.id">
                         </div>
 
                         <label class="col-sm-2 control-label">Apellido</label>
                         <div class="col-sm-4">
-                            <input ng-class="!customerForm.apellido.$valid ? 'has-error' : ''" name="apellido" type="text" class="form-control" ng-model="customer.apellido" ng-disabled="customer.id" required>
+                            <input type="text" class="form-control" ng-model="customer.apellido" ng-disabled="customer.id">
                         </div>
                     </div>
 
@@ -71,7 +72,7 @@
                         <div class="col-sm-8">
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-primary" type="submit" ng-disabled="customer.id || !customerForm.$valid">Crear</button>
+                            <button class="btn btn-primary" type="submit" ng-disabled="customer.id">Crear</button>
                         </div>
                     </div>
                 </form>

@@ -1,15 +1,44 @@
 //Dentro de controllers.js:
 
 /// CLIENTE CONTROLLERS
-    app.controller('NuevoclienteController', function($scope, $http) {
+    app.controller('NuevoclienteController', function($scope, $http, DateTimeService) {
 
         $scope.alert = { show: false };
-        $scope.customer = { };
-        resultValidations = '';
-        
-        $scope.create = function() {      	
-     
-        	if ($scope.customerForm.$valid) {
+        $scope.customer = { 'nombre': '', 'apellido': '', 'telefono': '', 'domicilio': ''};
+    
+        $scope.init = function() {
+		  $scope.customer.fechaIngreso = DateTimeService.datetime
+        }
+
+        $scope.create = function() {
+        	
+        	// validaciones temp
+        	var validated = false;
+        	var resultValidations = 'Verifique los siguientes campos: '
+        		
+        	var name = $scope.customer.nombre;
+        	if (name.length < 3) {
+            	resultValidations += " - Nombre invalido";
+            }
+        	var lname = $scope.customer.apellido;
+        	if (lname.length < 3) {
+            	resultValidations += " - Apellido invalido";
+            }
+        	var phone = $scope.customer.telefono;
+            if (isNaN(phone) || phone.length < 5) {
+            	resultValidations += " - Telefono invalido";
+            }
+        	var street = $scope.customer.domicilio;
+        	if (street.length < 3) {
+            	resultValidations += " - Domicilio invalido";
+            }
+        	if (resultValidations == 'Verifique los siguientes campos: ') {
+        		validated = true;
+        	}
+        	
+        	//
+        	
+        	if (validated == true) {
 	            $http.post("/cliente/", $scope.customer)
 	                .then(function (response) {
 	                    console.log (response);
@@ -40,17 +69,16 @@
     app.controller('BuscarclienteController', function($scope, $http) {
 
         $scope.searchParams = {};
-        //$scope.customers = {};
-        $scope.firstSearchDefault = false;
+        $scope.customers = {};
+        $scope.firstSearchDefault = true;
 
         $scope.init = function () {
 
-            /*$http.get("/cliente/")
+            $http.get("/cliente/")
                 .then(function (response) {
                     console.log (response);
                     $scope.customers = response.data;
                 });    
-            */
 
         }
         
@@ -80,11 +108,10 @@
 
         $scope.search = function() {
 
-            $http.post("/cliente/buscar", $scope.searchParams)
+            $http.post("https://www.w3schools.com/angular/customers_mysql.php", searchParams)
                 .then(function (response) {
                     console.log (response);
-                    $scope.customers = response.data;
-                    $scope.firstSearchDefault = true;
+                    $scope.customers = response.data.records;
                 });    
 
         }
@@ -160,40 +187,6 @@
 	           */
         	}
         	
-        }
-        
-    });
-    
-    app.controller('ClientemodificarController', function($scope, $http, $routeParams) {
-        
-        $customerid = $routeParams.clientid;
-        $scope.alert = { show: false };
-        $scope.customer = {};
-
-        $scope.init = function () {
-
-            $http.get("/cliente/" + $customerid)
-                .then(function (response) {
-                    console.log (response);
-                    $scope.customer = response.data;
-                });    
-        }
-
-        $scope.save = function() {
-
-            $http.post("/cliente/", $scope.customer)
-                .then(function (response) {
-                    console.log (response);
-                    $scope.customer = response.data;
-
-                    $scope.alert = { show: true, 
-                                     type: "alert-success", 
-                                     message: "Cliente actualizado correctamente.", 
-                                     link: "clientes/buscar", 
-                                     text: "Ver listado"
-                                   };
-                });    
-
         }
         
     });
