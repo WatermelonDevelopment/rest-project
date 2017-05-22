@@ -79,7 +79,7 @@ public abstract class BaseController <S extends BaseDao<E> , E>{
 			Specifications<E> spec = null;
 			
 			for(Entry<String,String> e : params.entrySet()) {
-				if(e.getKey() != "") {
+				if (e.getValue() != "") {
 					MySpecification<E> tmp = new MySpecification<E>(new SearchCriteria(e.getKey(),":",e.getValue()));
 					
 					if(spec == null){
@@ -88,6 +88,7 @@ public abstract class BaseController <S extends BaseDao<E> , E>{
 						spec = spec.and(tmp);
 					} 
 				}
+				
 			}
 			
 			return getService().findAll(spec);
