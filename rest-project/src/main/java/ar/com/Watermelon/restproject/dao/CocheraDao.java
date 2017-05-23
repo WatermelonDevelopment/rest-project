@@ -20,5 +20,7 @@ public interface CocheraDao extends BaseDao<Cochera> {
 
 	@Query("select distinct c.planta from Cochera c")
 	List<Integer> findCocheras();
+
+	List<Cochera> findAllByPlanta(Integer id);
 	
 }

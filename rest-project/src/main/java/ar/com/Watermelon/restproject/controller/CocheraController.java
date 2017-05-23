@@ -30,5 +30,10 @@ public class CocheraController extends BaseController<CocheraDao, Cochera>{
 	public @ResponseBody List<Integer> plantas() {
 		return getService().findCocheras();
 	}
+	
+	@RequestMapping(value = "/{id}/cocheras", method = RequestMethod.GET)
+	public @ResponseBody List<Cochera> cocheras(@PathVariable Integer id) {
+		return getService().findAllByPlanta(id);
+	}
 
 }
