@@ -115,8 +115,19 @@
             $http.get("/cliente/" + $customerid + "/vehiculos")
 	            .then(function (response) {
 	                console.log (response);
+	                
+	                var log = [];
+	                angular.forEach(response.data, function(value, key) {
+		                  //alert(key + ': ' + value.id);
+		                  $http.get("/vehiculo/" + value.id + "/cochera")
+		                  .then(function (responseC) {
+		                      console.log (responseC);
+		                      response.data[key].cochera = responseC.data;
+		                  });    
+	                }, log);
+	                
 	                $scope.cars = response.data;
-	            });    
+	            });
             
 
         }
