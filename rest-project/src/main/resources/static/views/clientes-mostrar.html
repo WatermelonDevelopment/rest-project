@@ -118,8 +118,13 @@
                             <td>{{ x.marca }}</td>
                             <td>{{ x.modelo }}</td>
                             <td>{{ x.patente }}</td>
-                            <td>{{ x.cochera.planta }} - {{ x.cochera.numero }}</td>
-                            <td>{{ x.cochera.categoria.precio }}</td>
+                            
+                            <td ng-show="x.cochera">P{{ x.cochera.planta }} - C{{ x.cochera.numero }}</td>
+                            <td ng-show="!x.cochera">Sin cochera</td>
+                            
+                            <td ng-show="x.cochera">${{ x.cochera.categoria.precio }}</td>
+                            <td ng-show="!x.cochera">-</td>
+                            
                             <td><a href="./#!/vehiculos/{{ x.id }}/busqueda">Editar</a></td>
                             <td><a ng-click="cardelete(x)">Borrar</a></td>
                         </tr>
