@@ -1,5 +1,7 @@
 package ar.com.Watermelon.restproject.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,5 +17,8 @@ public interface CocheraDao extends BaseDao<Cochera> {
 	
 	@Query("select sum(c.categoria.precio) from Cochera c where c.vehiculo.cliente = :cliente")
 	float findAllCocherasByCliente(Cliente cliente);
+
+	@Query("select distinct c.planta from Cochera c")
+	List<Integer> findCocheras();
 	
 }
