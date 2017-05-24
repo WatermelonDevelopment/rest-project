@@ -276,7 +276,7 @@
         
         $scope.getslots = function (floor) {
         	
-            $http.get("/cochera/" + floor + "/plantas")
+            $http.get("/cochera/" + floor + "/cocheras")
 	            .then(function (response) {
 	                console.log (response);
 	                $scope.slots = response.data;

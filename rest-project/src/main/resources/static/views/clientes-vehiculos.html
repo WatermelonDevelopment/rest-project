@@ -71,15 +71,17 @@
                     
                     <div class="form-group">
                     
-                        <label class="col-sm-2 control-label">Categoria</label>
+                        <label class="col-sm-2 control-label">Planta</label>
                         <div class="col-sm-4">
-                            <select class="form-control" ng-model="car.categoria" ng-disabled="car.id" ng-options="x for x in floors" ng-change="getslots(car.categoria)">
+                            <select class="form-control" ng-model="car.planta" ng-disabled="car.id" ng-options="x for x in floors" ng-change="getslots(car.planta)">
 							</select>
                         </div>
                     
                         <label class="col-sm-2 control-label">Cochera</label>
                         <div class="col-sm-4">
-                            <select class="form-control" ng-model="car.cochera" ng-disabled="car.id" ng-options="y for y in slots">
+                            <select class="form-control" ng-model="car.cochera" ng-disabled="car.id"
+                             ng-options="y as (y.planta + '-' + y.numero + '-' + y.vehiculo.patente) for y in slots">
+                            	
 							</select>
                         </div>
                     </div>
