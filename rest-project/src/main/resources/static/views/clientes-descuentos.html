@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Alta de vehiculos <small>Complete los datos.</small></h5>
+                <h5>Alta de descuentos <small>Complete los datos.</small></h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -32,7 +32,7 @@
                         
                         <label class="col-sm-2 control-label">Número</label>
                         <div class="col-sm-4">
-                            <p class="form-control-static">{{ car.id }}</p>
+                            <p class="form-control-static">{{ discount.id }}</p>
                         </div>
                         
                         <label class="col-sm-2 control-label">Cliente</label>
@@ -42,46 +42,21 @@
 
                     </div>
 
-                    <div class="form-group">        
-                    
-                        <label class="col-sm-2 control-label">Fecha de Ingreso</label>
+                    <div class="form-group">           
+                        <label class="col-sm-2 control-label">Tipo</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="car.fechaDeIngreso" ng-disabled="car.id">
-                         </div>         
+                            <select class="form-control" ng-model="discount.tipo" ng-disabled="discount.id">
+								<option value="0">Fijo</option>
+								<option value="1">Porcentual</option>
+							</select>
+                        </div>
                        
-                        <label class="col-sm-2 control-label">Marca</label>
+                        <label class="col-sm-2 control-label">Valor</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="car.marca" ng-disabled="car.id">
+                            <input type="text" class="form-control" ng-model="discount.valor" ng-disabled="discount.id">
                         </div>
 
-                    </div>
-
-                    <div class="form-group">
                     
-                        <label class="col-sm-2 control-label">Modelo</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="car.modelo" ng-disabled="car.id">
-                        </div>
-                    
-                        <label class="col-sm-2 control-label">Patente</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="car.patente" ng-disabled="car.id">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                    
-                        <label class="col-sm-2 control-label">Categoria</label>
-                        <div class="col-sm-4">
-                            <select class="form-control" ng-model="car.categoria" ng-disabled="car.id" ng-options="x for x in floors" ng-change="getslots(car.categoria)">
-							</select>
-                        </div>
-                    
-                        <label class="col-sm-2 control-label">Cochera</label>
-                        <div class="col-sm-4">
-                            <select class="form-control" ng-model="car.cochera" ng-disabled="car.id" ng-options="y for y in slots">
-							</select>
-                        </div>
                     </div>
 
                     <div class="hr-line-dashed"></div>
@@ -89,7 +64,7 @@
                         <div class="col-sm-8">
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-primary" type="submit" ng-disabled="car.id">Crear</button>
+                            <button class="btn btn-primary" type="submit" ng-disabled="discount.id">Crear</button>
                         </div>
                     </div>
                 </form>

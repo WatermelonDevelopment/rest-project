@@ -172,23 +172,17 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Fecha de Carga</th>
                             <th>Tipo</th>
                             <th>Valor</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>15/05/2017</td>
-                            <td>PORTENCUAL</td>
-                            <td>10%</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>15/05/2017</td>
-                            <td>FIJO</td>
-                            <td>$ 100</td>
+                        <tr ng-repeat="y in discounts">
+                            <td>{{ y.id }}</td>
+                            <td>{{ y.tipo }}</td>
+                            <td>{{ y.valor }}</td>
+                            <td><a ng-click="discountdelete(y)">Borrar</a></td>
                         </tr>
                     </tbody>
                 </table>

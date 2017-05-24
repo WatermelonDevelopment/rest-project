@@ -103,6 +103,7 @@
         $scope.alert = { show: false };
         $scope.customer = {};
         $scope.cars = {};
+        $scope.discounts = {};
 
         $scope.init = function () {
 
@@ -128,6 +129,14 @@
 	                
 	                $scope.cars = response.data;
 	            });
+            
+            $http.get("/cliente/" + $customerid + "/descuentos")
+	            .then(function (response) {
+	                console.log (response);
+	                                
+	                $scope.discounts = response.data;
+	            });
+	        
             
 
         }
@@ -156,6 +165,30 @@
         	if (r == true) {
         		$.ajax({
         		    url: '/vehiculo/' + vehiculo.id,
+        		    type: 'DELETE',
+        		    success: function(response) {
+        		        // Do something with the result
+        		    	console.log (response);
+        		    	$scope.init();
+        		    }
+        		});
+	            /*$http.delete("/empleado/" + empleado.id)
+	                .then(function (response) {
+	                    console.log (response);
+	                    $scope.init();
+	                });
+	           */
+        	}
+        	
+        }
+        
+        $scope.discountdelete = function (descuento) {
+        	
+        	var r = confirm('Esta seguro que desea eliminar el descuento?');
+
+        	if (r == true) {
+        		$.ajax({
+        		    url: '/descuento/' + descuento.id,
         		    type: 'DELETE',
         		    success: function(response) {
         		        // Do something with the result
@@ -215,10 +248,74 @@
         $scope.alert = { show: false };
         $scope.customer = {};
         $scope.car = {};
+        $scope.floors = {};
+        $scope.slots = {};
 
         $scope.init = function () {
 
         	$scope.car.fechaDeIngreso = DateTimeService.datetime
+//            $http.get("/vehiculo/" + $carid)
+//                .then(function (response) {
+//                    console.log (response);
+//                    $scope.car = response.data;
+//                });    
+        	
+            $http.get("/cliente/" + $customerid)
+	            .then(function (response) {
+	                console.log (response);
+	                $scope.customer = response.data;
+	            });   
+        	
+            $http.get("/cochera/plantas")
+	            .then(function (response) {
+	                console.log (response);
+	                $scope.floors = response.data;
+	            });   
+
+        }
+        
+        $scope.getslots = function (floor) {
+        	
+            $http.get("/cochera/" + floor + "/plantas")
+	            .then(function (response) {
+	                console.log (response);
+	                $scope.slots = response.data;
+	            });   
+
+        }
+        
+  
+
+        $scope.create = function() {
+
+        	$scope.car.cliente = $scope.customer;
+            $http.post("/vehiculo/", $scope.car)
+                .then(function (response) {
+                    console.log (response);
+                    $scope.car = response.data;
+
+                    $scope.alert = { show: true, 
+                                     type: "alert-success", 
+                                     message: "Vehiculo creado correctamente.", 
+                                     link: "clientes/" + $scope.customer.id + "/mostrar", 
+                                     text: "Ver cliente"
+                                   };
+                });    
+
+        }
+        
+    });
+    
+    app.controller('ClientedescuentosController', function($scope, $http, $routeParams, DateTimeService) {
+        
+        $customerid = $routeParams.clientid;
+        $scope.alert = { show: false };
+        $scope.customer = {};
+        $scope.discount = {};
+
+        $scope.init = function () {
+
+        	//$scope.discount.fechaDeIngreso = DateTimeService.datetime
 //            $http.get("/vehiculo/" + $carid)
 //                .then(function (response) {
 //                    console.log (response);
@@ -235,16 +332,16 @@
 
         $scope.create = function() {
 
-        	$scope.car.cliente = $scope.customer;
-            $http.post("/vehiculo/", $scope.car)
+        	$scope.discount.cliente = $scope.customer;
+            $http.post("/descuento/", $scope.discount)
                 .then(function (response) {
                     console.log (response);
-                    $scope.car = response.data;
+                    $scope.discount = response.data;
 
                     $scope.alert = { show: true, 
                                      type: "alert-success", 
-                                     message: "Vehiculo creado correctamente.", 
-                                     link: "clientes/" + $scope.customer.id + "/busqueda", 
+                                     message: "Descuento creado correctamente.", 
+                                     link: "clientes/" + $scope.customer.id + "/mostrar", 
                                      text: "Ver cliente"
                                    };
                 });    
