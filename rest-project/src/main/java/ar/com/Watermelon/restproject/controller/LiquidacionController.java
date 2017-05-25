@@ -22,9 +22,9 @@ public class LiquidacionController extends BaseController<LiquidacionDao, Liquid
 		return liquidacionDao;
 	}
 
-//	boolean liquidacionExists() {
-//		getService().ex
-//		return false;
+//	boolean liquidacionExists(Liquidacion l) {
+//		boolean exists = getService().exists(l.getFecha(),l.getCliente());
+//		return exists;
 //	}
 	
 	

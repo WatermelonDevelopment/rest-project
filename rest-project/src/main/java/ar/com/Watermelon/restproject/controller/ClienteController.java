@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
@@ -63,27 +65,41 @@ public class ClienteController extends BaseController<ClienteDao, Cliente>{
 	}
 	
 	@RequestMapping(value = "/{id}/generarLiquidacion", method = RequestMethod.GET)
-	public @ResponseBody Liquidacion generarLiquidacion(@PathVariable Long id) {
-		Cliente cliente = getService().findOne(id);
-
-		float monto = cocheraDao.findAllCocherasByCliente(cliente);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-		Liquidacion liquidacion = new Liquidacion();
-		liquidacion.setCliente(cliente);
-		liquidacion.setFecha(sdf.format(new Date()));
-		liquidacion.setMonto(monto);
-		//TODO: check liquidacion doesn't exist
+	public @ResponseBody String generarLiquidacion(@PathVariable Long id) {
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+		String fecha = sdf.format(new Date());
+		LiquidacionResponse result = new LiquidacionResponse();
+		if(liquidacionDao.exists(fecha,id)) {
+			result.message = "Ya existe una liquidacion para ese cliente y mes";
+		} else {
+//			boolean l = liquidacionDao.exists(fecha,id);
+			Liquidacion liquidacion = new Liquidacion();
+			Cliente cliente = getService().findOne(id);
+			liquidacion.setCliente(cliente);
+			liquidacion.setFecha(sdf.format(new Date()));
+			float monto = cocheraDao.findAllCocherasByCliente(cliente);
+			liquidacion.setMonto(monto);
+			liquidacionDao.save(liquidacion);
+			result.message="liquidacion generada con exito";
+			result.liquidacion=liquidacion;
+			
 		//TODO: save liquidacion
 		// return liq;
-		return liquidacion;
-	}
+		}
+		return result.message;
+		}
+
 	
 	
 	
 	@Scheduled(cron="* * * * *3 *")
 	public void generarFactura(){
 		
+	}
+	private class LiquidacionResponse {
+		private Liquidacion liquidacion;
+		private String message;
 	}
 
 }

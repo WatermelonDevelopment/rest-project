@@ -15,7 +15,7 @@ public interface CocheraDao extends BaseDao<Cochera> {
 	
 	Cochera findOneByVehiculo(Vehiculo vehiculo);
 	
-	@Query("select sum(c.categoria.precio) from Cochera c where c.vehiculo.cliente = :cliente")
+	@Query("select sum(c.categoria.precio) from Cochera c where c.vehiculo.cliente = ?1")
 	float findAllCocherasByCliente(Cliente cliente);
 
 	@Query("select distinct c.planta from Cochera c")
