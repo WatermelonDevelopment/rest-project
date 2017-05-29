@@ -119,8 +119,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="x in slots">
-                            <td>{{ x.planta }} - {{ x.numero }}</td>
+                        <tr ng-repeat="x in slots | orderBy : ['planta','numero'] ">
+                            <td>{{ x.planta + "- " + x.numero }}</td>
                             <td><a href="./#!/clientes/{{ x.vehiculo.cliente.id }}/mostrar">{{ x.vehiculo.cliente.nombre }} {{ x.vehiculo.cliente.apellido }}</a></td>
                             <td><a href="./#!/vehiculos/{{ x.vehiculo.id }}/busqueda">{{ x.vehiculo.marca }} {{ x.vehiculo.modelo }}</a></td>
                             <td>{{ x.vehiculo.patente }}</td>

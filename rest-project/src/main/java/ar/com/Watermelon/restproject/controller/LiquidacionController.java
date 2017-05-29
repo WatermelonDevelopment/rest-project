@@ -1,7 +1,10 @@
 package ar.com.Watermelon.restproject.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +38,12 @@ public class LiquidacionController extends BaseController<LiquidacionDao, Liquid
 	public @ResponseBody String generarFacturacion(){
 		facturacionService.generarFacturacion();
 		return "SOLICITADO";
+	}
+	
+	@RequestMapping(value = "/{id}/pagar", method = RequestMethod.POST)
+	public @ResponseBody void pagar(@PathVariable Long id) {
+		Date fecha = new Date(); 
+		getService().pagar(fecha, id);
 	}
 
 }

@@ -56,6 +56,12 @@ public class ClienteController extends BaseController<ClienteDao, Cliente>{
 		return descuentoDao.findAllByCliente(cliente);
 	}
 	
+	@RequestMapping(value = "/{id}/liquidacion", method = RequestMethod.GET)
+	public @ResponseBody List<Liquidacion> liquidacion(@PathVariable Long id) {
+		Cliente cliente = getService().findOne(id);
+		return liquidacionDao.findAllByCliente(cliente);
+	}
+	
 	@RequestMapping(value = "/{idcliente}/liquidacion/{idliquidacion}", method = RequestMethod.GET)
 	public @ResponseBody Liquidacion generarLiquidacion(@PathVariable Long idcliente,
 			@PathVariable Long idliquidacion) {

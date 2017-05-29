@@ -45,12 +45,11 @@
 
         $scope.init = function () {
 
-            /*$http.get("/cliente/")
+            $http.get("/cliente/")
                 .then(function (response) {
                     console.log (response);
                     $scope.customers = response.data;
                 });    
-            */
 
         }
         
@@ -104,6 +103,7 @@
         $scope.customer = {};
         $scope.cars = {};
         $scope.discounts = {};
+        $scope.payslip = {};
 
         $scope.init = function () {
 
@@ -136,6 +136,13 @@
 	                                
 	                $scope.discounts = response.data;
 	            });
+            
+            $http.get("/cliente/" + $customerid + "/liquidacion")
+            .then(function (response) {
+                console.log (response);
+                                
+                $scope.payslip = response.data;
+            });
 	        
             
 
@@ -202,6 +209,26 @@
 	                    $scope.init();
 	                });
 	           */
+        	}
+        	
+        }
+        
+        
+        
+        $scope.pagarFactura = function (idFactura) {
+        	
+        	var r = confirm('Esta seguro que desea registrar el pago');
+
+        	if (r == true) {
+        		$.ajax({
+        		    url: '/liquidacion/' + idFactura + '/pagar',
+        		    type: 'POST',
+        		    success: function() {
+        		        // Do something with the result
+        		    	console.log (idFactura);
+        		    	$scope.init();
+        		    }
+        		});
         	}
         	
         }
