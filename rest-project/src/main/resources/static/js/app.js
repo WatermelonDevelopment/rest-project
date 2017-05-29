@@ -93,6 +93,10 @@ app.config(function($routeProvider, $httpProvider) {
 					templateUrl : 'views/vehiculos-mostrar.html',
 					controller : 'VehiculoController'
 			
+	            }).when('/cocheras/buscar', {
+	    			
+					templateUrl : 'views/cocheras-busqueda.html',
+					controller : 'BuscarcocherasController'
 
 	            }).when('/empleados/nuevo', {
 

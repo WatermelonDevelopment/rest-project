@@ -1,0 +1,140 @@
+<div class="row">
+<!--     <div class="col-lg-12"> -->
+<!--         <div class="ibox float-e-margins"> -->
+<!--             <div class="ibox-title"> -->
+<!--                 <h5>Filtros de busqueda <small>Ingrese los campos por el cual desea buscar.</small></h5> -->
+<!--                 <div class="ibox-tools"> -->
+<!--                     <a class="collapse-link"> -->
+<!--                         <i class="fa fa-chevron-up"></i> -->
+<!--                     </a> -->
+<!--                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> -->
+<!--                         <i class="fa fa-wrench"></i> -->
+<!--                     </a> -->
+<!--                     <ul class="dropdown-menu dropdown-user"> -->
+<!--                         <li><a href="#">Config option 1</a> -->
+<!--                         </li> -->
+<!--                         <li><a href="#">Config option 2</a> -->
+<!--                         </li> -->
+<!--                     </ul> -->
+<!--                     <a class="close-link"> -->
+<!--                         <i class="fa fa-times"></i> -->
+<!--                     </a> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--             <div class="ibox-content"> -->
+<!--                 <form method="get" class="form-horizontal" ng-submit="search()"> -->
+                
+<!--                     <div class="form-group"> -->
+                    
+<!--                     	<label class="col-sm-2 control-label">Numero</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             <input type="text" class="form-control" ng-model="searchParams.id"> -->
+<!--                         </div> -->
+                        
+<!--                         <label class="col-sm-2 control-label">Nombre</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             <input type="text" class="form-control" ng-model="searchParams.nombre"> -->
+<!--                         </div> -->
+                       
+<!--                     </div> -->
+
+<!--                     <div class="form-group"> -->
+                     
+<!--                         <label class="col-sm-2 control-label">Apellido</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             <input type="text" class="form-control" ng-model="searchParams.apellido"> -->
+<!--                         </div> -->
+                        
+<!--                         <label class="col-sm-2 control-label">Telefono</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             <input type="text" class="form-control" ng-model="searchParams.telefono"> -->
+<!--                         </div> -->
+                        
+<!--                     </div> -->
+                        
+<!--                     <div class="form-group">           -->
+
+<!--                         <label class="col-sm-2 control-label">Domicilio</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             <input type="text" class="form-control" ng-model="searchParams.domicilio"> -->
+<!--                         </div> -->
+                        
+<!--                     </div> -->
+
+                   
+<!--                     <div class="hr-line-dashed"></div> -->
+<!--                     <div class="form-group"> -->
+<!--                         <div class="col-sm-8"> -->
+<!--                         </div> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             button class="btn btn-white" type="submit">Cancelar</button -->
+<!--                             <button class="btn btn-primary">Buscar</button> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </form> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+<!-- </div> -->
+
+<div class="row" ng-show="slots" ng-init="init()">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Listado de cocheras <small></small></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#">Config option 1</a>
+                        </li>
+                        <li><a href="#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link" ng-click="clearResults()">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+        
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+<!--                         N° automovil patente apellido nombre direccion ingreso tel movil -->
+                            <th>#</th>
+<!--                             <th>Planta</th> -->
+                            <th>Cliente</th>
+                            <th>Vehiculo</th>
+                            <th>Patente</th>
+                            <th>Domicilio</th>
+                            <th>Ingreso</th>
+                            <th>Telefono</th>
+<!--                             <th>Ir a Cliente</th> -->
+<!--                             <th>Eliminar</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in slots">
+                            <td>{{ x.planta }} - {{ x.numero }}</td>
+                            <td><a href="./#!/clientes/{{ x.vehiculo.cliente.id }}/mostrar">{{ x.vehiculo.cliente.nombre }} {{ x.vehiculo.cliente.apellido }}</a></td>
+                            <td><a href="./#!/vehiculos/{{ x.vehiculo.id }}/busqueda">{{ x.vehiculo.marca }} {{ x.vehiculo.modelo }}</a></td>
+                            <td>{{ x.vehiculo.patente }}</td>
+                            <td>{{ x.vehiculo.cliente.domicilio }}</td>
+                            <td>{{ x.vehiculo.cliente.fechaIngreso }}</td>
+                             <td>{{ x.vehiculo.cliente.telefono }}</td>
+<!--                             <td><a href="./#!/clientes/{{ x.vehiculo.cliente.id }}/mostrar">Ver</a></td> -->
+<!--                             <td><a href="./#!/clientes/{{ x.id }}/modificar">Editar</a></td> -->
+<!--                             <td><a ng-click="delete(x)">Borrar</a></td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
