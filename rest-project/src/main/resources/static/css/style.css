@@ -7478,3 +7478,20 @@ body.skin-3 {
     display: none;
   }
 }
+
+
+/**			cocheras 					**/
+
+div#mensajes {
+	width: 100%;
+    text-align: center;
+    background: rgba(255, 250, 184, 0.76);
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+span.cerrar {
+	float: right;
+    padding-right: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -18,11 +18,24 @@ public class FacturacionService {
 			//x tareas que interactuan con la base
 			//logica java, 
 			//etc
-			
-			msgTemplate.convertAndSend("/topic/facturacion", "test");
+			Respuesta r = new Respuesta();
+			r.setMensaje("Se ha generado la facturacion");
+			msgTemplate.convertAndSend("/topic/facturacion", r);
 		}catch(Exception e){
 		msgTemplate.convertAndSend("/topic/facturacion", "E:2222323");
 //	logger.error("Error facturando.. etc: " + e.getMessage());
+		}
+	}
+	
+	class Respuesta {
+		String mensaje;
+
+		public String getMensaje() {
+			return mensaje;
+		}
+
+		public void setMensaje(String mensaje) {
+			this.mensaje = mensaje;
 		}
 	}
 

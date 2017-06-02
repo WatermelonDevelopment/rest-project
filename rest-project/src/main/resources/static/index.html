@@ -36,7 +36,7 @@
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                                <img alt="image" class="img-circle" src="img/logo.jpg" />
+                                <img alt="image" class="img-circle" src="img/chino.png" />
                                 </span>
                            
                         </div>
@@ -75,26 +75,29 @@
 
         <div id="page-wrapper" class="gray-bg">
 
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    </div>
-                        <ul class="nav navbar-top-links navbar-right">
-                            <li>
-                                <span class="m-r-sm text-muted welcome-message">Bienvenido a Parking Lot!</span>
-                            </li>
-                            <li>
-                                <a href="login.html">
-                                    <i class="fa fa-sign-out"></i> Cerrar sesión
-                                </a>
-                            </li>
-                        </ul>
+			<div class="row border-bottom">
+				<nav class="navbar navbar-static-top white-bg" role="navigation"
+					style="margin-bottom: 0">
+					<div class="navbar-header">
+						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary "
+							href="#"><i class="fa fa-bars"></i> </a>
+					</div>
+					<ul class="nav navbar-top-links navbar-right">
+						<li><span class="m-r-sm text-muted welcome-message">Bienvenido
+								a Parking Lot!</span></li>
+						<li><a href="login.html"> <i class="fa fa-sign-out"></i>
+								Cerrar sesión
+						</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="row">
+				<div id="mensajes" ng-show="mensaje != null">
+						<span class="mensaje">{{mensaje}}</span> <span class="cerrar" ng-click="mensaje = null">x</span>
+					</div>
+			</div>
 
-                </nav>
-            </div>
-
-            <!--div class="row wrapper border-bottom white-bg page-heading">
+			<!--div class="row wrapper border-bottom white-bg page-heading">
         
             </div-->
 
@@ -119,7 +122,8 @@
     <!-- Mainly scripts -->
     <!--script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script-->
-
+	<script src="js/sockjs-0.3.4.min.js"></script>
+	<script src="js/stomp.min.js"></script>
 		<script src="js/jquery-3.2.0.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 
@@ -127,10 +131,13 @@
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 		<script src="js/angular.min.js"></script>
+		<script src="js/ng.stomp.js"></script>
 		<script src="js/angular-route.min.js"></script>
 
 		<script src="js/utils.js"></script>		
 
+		
+		
 		<script src="js/app.js"></script>
 		<script src="js/controllers.js"></script>
 

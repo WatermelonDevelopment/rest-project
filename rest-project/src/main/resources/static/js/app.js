@@ -1,5 +1,5 @@
 //Dentro de app.js:
-var app = angular.module('taller', ['ngRoute']);
+var app = angular.module('taller', ['ngRoute','ngStomp']);
 
 app.factory('DateTimeService', function() {
 	
@@ -32,15 +32,15 @@ app.config(function($routeProvider, $httpProvider) {
 	$httpProvider.interceptors.push(function($q) {
 		return {
 			request: function(req){
-				showSpinner();
+//				showSpinner();
 				return req;
 			},
 			response: function(res){
-				hideSpinner();
+//				hideSpinner();
 				return res;
 			},
 			responseError : function(rejection, sd) {
-				hideSpinner();
+//				hideSpinner();
 				return $q.reject(rejection);
 			}
 		};
@@ -115,4 +115,19 @@ app.config(function($routeProvider, $httpProvider) {
 
 	            });
 
+});
+
+app.run(function($rootScope, $stomp) {
+
+	$stomp.connect('/ws').then(function(frame) {
+		var topicFacturacion = $stomp.subscribe('/topic/facturacion', function(payload, headers, res) {
+			console.log(payload);
+//			$rootScope.$broadcast('facturacion', payload);
+//			alert(payload.mensaje);
+			$rootScope.mensaje= payload.mensaje;
+			$rootScope.$apply();
+		});
+		
+		
+	});
 });

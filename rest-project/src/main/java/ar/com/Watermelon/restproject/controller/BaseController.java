@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +39,14 @@ public abstract class BaseController <S extends BaseDao<E> , E>{
 		Collections.reverse(lista);
 		
 		return lista;
+	}
+	
+	@RequestMapping("/paginado/{pagina}/{tamPagina}")
+	public @ResponseBody Page<E> paginado(@PathVariable("pagina") int pagina,@PathVariable("tamPagina") int tamPagina) {
+
+		PageRequest page = new PageRequest(pagina-1,tamPagina);
+		
+		return getService().findAll(page);
 	}
 
 	
