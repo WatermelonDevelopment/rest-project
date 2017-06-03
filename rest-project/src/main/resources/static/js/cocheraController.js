@@ -6,7 +6,7 @@ app.controller('BuscarcocherasController', function($scope, $http) {
 
     $scope.init = function () {
 
-        $http.get("/cochera/")
+        $http.get("/cochera/paginado/1/5")
             .then(function (response) {
                 console.log (response);
                 $scope.slots = response.data;

@@ -119,7 +119,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="x in slots | orderBy : ['planta','numero'] ">
+                        <tr ng-repeat="x in slots.content | orderBy : ['planta','numero'] ">
                             <td>{{ x.planta + "- " + x.numero }}</td>
                             <td><a href="./#!/clientes/{{ x.vehiculo.cliente.id }}/mostrar">{{ x.vehiculo.cliente.nombre }} {{ x.vehiculo.cliente.apellido }}</a></td>
                             <td><a href="./#!/vehiculos/{{ x.vehiculo.id }}/busqueda">{{ x.vehiculo.marca }} {{ x.vehiculo.modelo }}</a></td>
@@ -131,7 +131,29 @@
 <!--                             <td><a href="./#!/clientes/{{ x.id }}/modificar">Editar</a></td> -->
 <!--                             <td><a ng-click="delete(x)">Borrar</a></td> -->
                         </tr>
+                        
                     </tbody>
+                    <tfoot>
+                    	<!-- pager -->
+				        <ul ng-if="slots.totalPages < 1" class="pagination">
+				            <li ng-disabled="slots.first">
+				                <a ng-click=""><<</a>
+				            </li>
+				            <li ng-disabled="slots.first == true">
+				                <a ng-click=""><</a>
+				            </li>
+				            <li ng-repeat="page in slots.totalPages"> 
+<!-- 				            ng-class="{active:vm.pager.currentPage === page}"> -->
+				                <a ng-click="slots.setPage(page)">{{page}}</a>
+				            </li>
+				            <li ng-disabled="slots.first == true">
+				                <a ng-click="">></a>
+				            </li>               
+				            <li ng-disabled="slots.first == true">
+				                <a ng-click="">>></a>
+				            </li>
+				        </ul>
+                    </tfoot>
                 </table>
             </div>
 
