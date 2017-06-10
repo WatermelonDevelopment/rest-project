@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
@@ -23,6 +21,7 @@ import ar.com.Watermelon.restproject.model.Cliente;
 import ar.com.Watermelon.restproject.model.Descuento;
 import ar.com.Watermelon.restproject.model.Liquidacion;
 import ar.com.Watermelon.restproject.model.Vehiculo;
+import ar.com.Watermelon.restproject.service.FacturacionService;
 
 @Controller
 @RequestMapping("/cliente")
@@ -38,6 +37,8 @@ public class ClienteController extends BaseController<ClienteDao, Cliente>{
 	DescuentoDao descuentoDao;
 	@Autowired
 	LiquidacionDao liquidacionDao;
+	@Autowired
+	FacturacionService facturacionService;
 
 	@Override
 	protected ClienteDao getService() {
@@ -71,39 +72,28 @@ public class ClienteController extends BaseController<ClienteDao, Cliente>{
 	}
 	
 	@RequestMapping(value = "/{id}/generarLiquidacion", method = RequestMethod.GET)
-	public @ResponseBody String generarLiquidacion(@PathVariable Long id) {
+	public @ResponseBody LiquidacionResponse generarLiquidacion(@PathVariable Long id) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
 		String fecha = sdf.format(new Date());
 		LiquidacionResponse result = new LiquidacionResponse();
-		if(liquidacionDao.exists(fecha,id)) {
+		if(liquidacionDao.exists(fecha,id) != null) {
 			result.message = "Ya existe una liquidacion para ese cliente y mes";
 		} else {
-//			boolean l = liquidacionDao.exists(fecha,id);
-			Liquidacion liquidacion = new Liquidacion();
-			Cliente cliente = getService().findOne(id);
-			liquidacion.setCliente(cliente);
-			liquidacion.setFecha(sdf.format(new Date()));
-			float monto = cocheraDao.findAllCocherasByCliente(cliente);
-			liquidacion.setMonto(monto);
-			liquidacionDao.save(liquidacion);
+			result.liquidacion=facturacionService.generarFacturacionCliente(id);
 			result.message="liquidacion generada con exito";
-			result.liquidacion=liquidacion;
-			
-		//TODO: save liquidacion
-		// return liq;
 		}
-		return result.message;
+		return result;
 		}
 
-	
-	
-	
-	@Scheduled(cron="* * * * *3 *")
-	public void generarFactura(){
-		
+	@RequestMapping(value = "/{idFactura}", method = RequestMethod.POST)
+	public @ResponseBody void pagar(@PathVariable Long idFactura) {
+		Date fecha = new Date(); 
+		liquidacionDao.pagar(fecha, idFactura);
 	}
-	private class LiquidacionResponse {
+	
+
+	public class LiquidacionResponse {
 		private Liquidacion liquidacion;
 		private String message;
 	}

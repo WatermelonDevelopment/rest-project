@@ -2,7 +2,7 @@
  * 
  */
 
-app.controller('NuevoclienteController', function($scope, $http) {
+app.controller('NuevoclienteController', function($scope, $http, $location) {
 
     $scope.alert = { show: false };
     $scope.customer = { };
@@ -14,12 +14,7 @@ app.controller('NuevoclienteController', function($scope, $http) {
                 .then(function (response) {
                     console.log (response);
                     $scope.customer = response.data;
-                    $scope.alert = { show: true, 
-                    	type: "alert-success", 
-                    	message: "Cliente creado correctamente con el numero "+ $scope.customer.id +".", 
-                    	link: "clientes/" + $scope.customer.id + "/busqueda", 
-                    	text: "Ver cliente"
-                   };
+                    $location.path("clientes/" + $scope.customer.id + "/mostrar");
                 });   
     	} else {
             $scope.alert = { show: true, 
@@ -138,23 +133,6 @@ app.controller('ClienteController', function($scope, $http, $routeParams) {
         });
     }
 
-    $scope.save = function() {
-
-        $http.post("/cliente/", $scope.customer)
-            .then(function (response) {
-                console.log (response);
-                $scope.customer = response.data;
-
-                $scope.alert = { show: true, 
-                                 type: "alert-success", 
-                                 message: "Cliente actualizado correctamente.", 
-                                 link: "clientes/buscar", 
-                                 text: "Ver listado"
-                               };
-            });    
-
-    }
-    
     $scope.cardelete = function (vehiculo) {
     	
     	var r = confirm('Esta seguro que desea eliminar el vehiculo?');
@@ -195,7 +173,7 @@ app.controller('ClienteController', function($scope, $http, $routeParams) {
 
     	if (r == true) {
     		$.ajax({
-    		    url: '/liquidacion/' + idFactura + '/pagar',
+    		    url: '/cliente/' + idFactura + '/pagar',
     		    type: 'POST',
     		    success: function() {
     		        // Do something with the result
@@ -213,7 +191,7 @@ app.controller('ClienteController', function($scope, $http, $routeParams) {
  * 
  */
     
-app.controller('ClientemodificarController', function($scope, $http, $routeParams) {
+app.controller('ClientemodificarController', function($scope, $http, $routeParams,$location) {
     
     $customerid = $routeParams.clientid;
     $scope.alert = { show: false };
@@ -232,15 +210,9 @@ app.controller('ClientemodificarController', function($scope, $http, $routeParam
 
         $http.post("/cliente/", $scope.customer)
             .then(function (response) {
-                console.log (response);
-                $scope.customer = response.data;
-
-                $scope.alert = { show: true, 
-                                 type: "alert-success", 
-                                 message: "Cliente actualizado correctamente.", 
-                                 link: "clientes/buscar", 
-                                 text: "Ver listado"
-                               };
+            	 console.log (response);
+                 $scope.customer = response.data;
+                 $location.path("clientes/" + $scope.customer.id + "/mostrar");
             });    
 
     }

@@ -15,8 +15,8 @@ import ar.com.Watermelon.restproject.model.Liquidacion;
 @Transactional
 public interface LiquidacionDao extends BaseDao<Liquidacion> {
 	
-	@Query("select count(l.id)>0 from Liquidacion l where l.fecha = :idFecha and l.cliente.id = :idCliente")
-	boolean exists(@Param("idFecha")String idFecha,@Param("idCliente")Long idCliente);
+	@Query("select l from Liquidacion l where l.fecha = :idFecha and l.cliente.id = :idCliente")
+	Liquidacion exists(@Param("idFecha")String idFecha,@Param("idCliente")Long idCliente);
 	
 //	@SQLUpdate( sql="UPDATE Liquidacion SET fechaPago = ?1,  WHERE id = ?2")
 	@Modifying

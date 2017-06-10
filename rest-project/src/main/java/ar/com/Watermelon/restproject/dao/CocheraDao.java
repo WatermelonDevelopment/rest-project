@@ -16,11 +16,10 @@ public interface CocheraDao extends BaseDao<Cochera> {
 	Cochera findOneByVehiculo(Vehiculo vehiculo);
 	
 	@Query("select sum(c.categoria.precio) from Cochera c where c.vehiculo.cliente = ?1")
-	float findAllCocherasByCliente(Cliente cliente);
+	Float findAllCocherasByCliente(Cliente cliente);
 
 	@Query("select distinct c.planta from Cochera c")
 	List<Integer> findCocheras();
 
-	List<Cochera> findAllByPlanta(Integer id);
-	
+	List<Cochera> findAllByPlanta(Integer floor);
 }

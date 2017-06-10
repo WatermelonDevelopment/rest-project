@@ -1,4 +1,4 @@
-app.controller('NuevoempleadoController', function($scope, $http, DateTimeService) {
+app.controller('NuevoempleadoController', function($scope, $http, DateTimeService, $location) {
         
     $scope.alert = { show: false };
     $scope.employe = { 'nombre': '', 'apellido': '', 'telefono': '', 'celular': '', 'domicilio': ''};
@@ -40,15 +40,9 @@ app.controller('NuevoempleadoController', function($scope, $http, DateTimeServic
     	if (validated == true) {
             $http.post("/empleado/", $scope.employe)
                 .then(function (response) {
-                    console.log (response);
-                    $scope.employe = response.data;
-
-                    $scope.alert = { show: true, 
-                         type: "alert-success", 
-                         message: "Empleado creado correctamente con el numero "+ $scope.employe.id +".", 
-                         link: "empleados/" + $scope.employe.id + "/busqueda", 
-                         text: "Ver empleado"
-                    };
+                	 console.log (response);
+                     $scope.employe = response.data;
+                     $location.path("empleados/buscar");
                 });   
     	} else {
             $scope.alert = { show: true, 
@@ -93,23 +87,13 @@ app.controller('BuscarempleadoController', function($scope, $http) {
     	}
     }
 
-    $scope.search = function() {
-
-        $http.post("https://www.w3schools.com/angular/customers_mysql.php", searchParams)
-            .then(function (response) {
-                console.log (response);
-                $scope.customers = response.data.records;
-            });    
-
-    }
-
     $scope.clearResults = function() {
         $scope.firstSearchDefault = false;
     }
 
 });
 
-app.controller('EmpleadoController', function($scope, $http, $routeParams) {
+app.controller('EmpleadoController', function($scope, $http, $routeParams, $location) {
 
     $employeid = $routeParams.employeid;
     $scope.alert = { show: false };
@@ -127,15 +111,9 @@ app.controller('EmpleadoController', function($scope, $http, $routeParams) {
 
         $http.post("/empleado/", $scope.employe)
             .then(function (response) {
-                console.log (response);
-                $scope.employe = response.data;
-
-                $scope.alert = { show: true, 
-                                 type: "alert-success", 
-                                 message: "Empleado actualizado correctamente.", 
-                                 link: "empleados/buscar", 
-                                 text: "Ver listado"
-                               };
+            	 console.log (response);
+                 $scope.employe = response.data;
+                 $location.path("empleados/buscar");
             });    
     }
 });

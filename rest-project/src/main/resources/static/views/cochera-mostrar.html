@@ -1,0 +1,44 @@
+<div class="row" ng-init="init()">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Vista de cochera <small></small></h5>
+            </div>
+            <div class="ibox-content">
+
+                <div class="alert {{ alert.type }}" ng-show="alert.show">
+                    {{ alert.message }} <a class="alert-link" href="./#!/{{ alert.link }}">{{ alert.text }}</a>
+                </div>
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        
+                        <label class="col-sm-2 control-label">Planta</label>
+                        <div class="col-sm-4">
+                            <p class="form-control-static">{{slot.planta}}</p>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Número</label>
+                        <div class="col-sm-4">
+                            <p class="form-control-static">{{slot.numero}}</p>
+                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        
+                        <label class="col-sm-2 control-label">Vehículo</label>
+                        <div class="col-sm-4">
+                            <p class="form-control-static" ng-show="slot.vehiculo"><a href="./#!/vehiculos/{{ slot.vehiculo.id }}/busqueda">{{slot.vehiculo.patente}}</a></p>
+                            <p class="form-control-static" ng-show="!slot.vehiculo">Libre</p>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Tipo de vehículo</label>
+                        <div class="col-sm-4">
+                            <p class="form-control-static">{{slot.categoria.tipoCochera}}</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

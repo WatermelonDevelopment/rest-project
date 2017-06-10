@@ -71,7 +71,7 @@ app.config(function($routeProvider, $httpProvider) {
 	            }).when('/clientes/:clientid/vehiculos', {
 	    			
 					templateUrl : 'views/clientes-vehiculos.html',
-					controller : 'ClientevehiculosController'
+					controller : 'vehiculosAltaController'
 
 	            }).when('/clientes/:clientid/descuentos', {
 	    			
@@ -98,6 +98,11 @@ app.config(function($routeProvider, $httpProvider) {
 					templateUrl : 'views/cocheras-busqueda.html',
 					controller : 'BuscarcocherasController'
 
+	            }).when('/cocheras/:slotid', {
+
+	        		templateUrl : 'views/cochera-mostrar.html',
+	        		controller : 'cocheraController'
+
 	            }).when('/empleados/nuevo', {
 
 	        		templateUrl : 'views/empleados-nuevo.html',
@@ -119,15 +124,31 @@ app.config(function($routeProvider, $httpProvider) {
 
 app.run(function($rootScope, $stomp) {
 
-	$stomp.connect('/ws').then(function(frame) {
-		var topicFacturacion = $stomp.subscribe('/topic/facturacion', function(payload, headers, res) {
-			console.log(payload);
-//			$rootScope.$broadcast('facturacion', payload);
-//			alert(payload.mensaje);
-			$rootScope.mensaje= payload.mensaje;
-			$rootScope.$apply();
-		});
-		
-		
-	});
+	function connectWS(){
+		$stomp.connect('/ws').then(function(frame) {
+			hideSpinner();
+			var topicFacturacion = $stomp.subscribe('/topic/facturacion', function(payload, headers, res) {
+				$rootScope.mensaje= payload.mensaje;
+				$rootScope.$apply();
+			});
+			
+			
+			$stomp.sock.onclose = function(){
+				showSpinner();
+				handleLostConnection();
+			};
+		}, function(error){
+			handleLostConnection();
+		});	
+	}
+	
+	function handleLostConnection(){
+		var timer = setInterval(function() {
+			console.warn("Se cortó la conexión WS.. Reintentando..");
+			connectWS();
+			clearInterval(timer);
+		},5000);
+	}
+	
+	connectWS();
 });

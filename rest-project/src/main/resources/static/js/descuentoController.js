@@ -1,4 +1,4 @@
-app.controller('ClientedescuentosController', function($scope, $http, $routeParams, DateTimeService) {
+app.controller('ClientedescuentosController', function($scope, $http, $routeParams, DateTimeService, $location) {
     
     $customerid = $routeParams.clientid;
     $scope.alert = { show: false };
@@ -20,15 +20,9 @@ app.controller('ClientedescuentosController', function($scope, $http, $routePara
     	$scope.discount.cliente = $scope.customer;
         $http.post("/descuento/", $scope.discount)
             .then(function (response) {
-                console.log (response);
-                $scope.discount = response.data;
-
-                $scope.alert = { show: true, 
-                                 type: "alert-success", 
-                                 message: "Descuento creado correctamente.", 
-                                 link: "clientes/" + $scope.customer.id + "/mostrar", 
-                                 text: "Ver cliente"
-                               };
+            	 console.log (response);
+                 $scope.customer = response.data;
+                 $location.path("clientes/" + $scope.customer.id + "/mostrar");
             });    
     }
 });

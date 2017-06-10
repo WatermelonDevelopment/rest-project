@@ -1,59 +1,6 @@
 app.controller('NuevovehiculoController', function($scope, $http, $routeParams, DateTimeService) {
         
-    $scope.alert = { show: false };
-    $scope.car = { 'marca': '', 'modelo': '', 'patente': ''};
     
-    $scope.init = function() {
-      $scope.car.customerid = $routeParams.customerid
-	  $scope.car.fechaDeIngreso = DateTimeService.datetime
-    }
-    
-    $scope.create = function() {
-
-    	// validaciones temp
-    	var validated = false;
-    	var resultValidations = 'Verifique los siguientes campos: '
-    		
-    	var name = $scope.car.marca;
-    	if (name.length < 3) {
-        	resultValidations += " - Marca invalida";
-        }
-    	var model = $scope.car.modelo;
-    	if (model.length < 3) {
-        	resultValidations += " - Modelo invalido";
-        }
-    	var domain = $scope.car.patente;
-    	if (domain.length < 3) {
-        	resultValidations += " - Patente invalido";
-        }
-    	if (resultValidations == 'Verifique los siguientes campos: ') {
-    		validated = true;
-    	}
-    	
-    	if (validated == true) {
-            $http.post("/vehiculo/", $scope.car)
-                .then(function (response) {
-                    console.log (response);
-                    $scope.car = response.data;
-
-                    $scope.alert = { show: true, 
-                    	type: "alert-success", 
-                    	message: "Vehiculo creado correctamente con el numero "+ $scope.car.id +".", 
-                    	link: "vehiculos/" + $scope.car.id + "/busqueda", 
-                    	text: "Ver vehiculo"
-                   };
-                });   
-    	} else {
-            $scope.alert = {
-            		show: true, 
-                    type: "alert-warning", 
-                    message: resultValidations, 
-                    link: "", 
-                    text: ""
-           };        		
-    	}
-    }
-
 });
 
 app.controller('BuscarvehiculoController', function($scope, $http) {
@@ -86,16 +33,6 @@ app.controller('BuscarvehiculoController', function($scope, $http) {
     	}
     }
 
-    $scope.search = function() {
-
-        $http.post("https://www.w3schools.com/angular/customers_mysql.php", searchParams)
-            .then(function (response) {
-                console.log (response);
-                $scope.customers = response.data.records;
-            });    
-
-    }
-
     $scope.clearResults = function() {
         $scope.firstSearchDefault = false;
     }
@@ -117,18 +54,58 @@ app.controller('VehiculoController', function($scope, $http, $routeParams) {
             });    
     }
 
-    $scope.save = function() {
+});
 
+app.controller('vehiculosAltaController', function($scope, $http, $routeParams, DateTimeService) {
+    
+    $customerid = $routeParams.clientid;
+    $scope.alert = { show: false };
+    $scope.customer = {};
+    $scope.car = {};
+    $scope.floors = {};
+    $scope.slots = {};
+
+    $scope.init = function () {
+
+    	$scope.car.fechaDeIngreso = DateTimeService.datetime;
+//            $http.get("/vehiculo/" + $carid)
+//                .then(function (response) {
+//                    console.log (response);
+//                    $scope.car = response.data;
+//                });    
+
+		$http.get("/cliente/" + $customerid).then(function(response) {
+			console.log(response);
+			$scope.customer = response.data;
+		});
+
+		$http.get("/cochera/plantas").then(function(response) {
+			console.log(response);
+			$scope.floors = response.data;
+		});
+	}
+
+	$scope.getslots = function(floor) {
+		$http.get("/cochera/" + floor + "/cocheras").then(function(response) {
+			console.log(response);
+			$scope.slots = response.data;
+		});
+	}
+        
+    $scope.create = function() {
+
+    	$scope.car.cliente = $scope.customer;
         $http.post("/vehiculo/", $scope.car)
-            .then(function (response) {
-                console.log (response);
-                $scope.car = response.data;
-                $scope.alert = { show: true, 
-                	type: "alert-success", 
-                	message: "Vehiculo actualizado correctamente.", 
-                	link: "clientes/" + $scope.car.cliente.id + "/busqueda", 
-                	text: "Ver cliente"
-               };
-            });    
+        .then(function (response) {
+            console.log (response);
+            $scope.car = response.data;
+
+            $scope.alert = { show: true, 
+            	type: "alert-success", 
+            	message: "Vehiculo creado correctamente.", 
+            	link: "clientes/" + $scope.customer.id + "/mostrar", 
+            	text: "Ver cliente"
+           };
+        });    
     }
 });

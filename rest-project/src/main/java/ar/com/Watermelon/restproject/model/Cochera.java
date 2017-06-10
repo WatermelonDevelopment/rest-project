@@ -10,7 +10,7 @@ public class Cochera {
 
 	@GeneratedValue
 	@Id
-	private int id;
+	private long id;
 	private int numero;
 	private int planta;
 	private String espacio;
@@ -19,10 +19,10 @@ public class Cochera {
 	@OneToOne
 	private Categoria categoria;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public int getNumero() {

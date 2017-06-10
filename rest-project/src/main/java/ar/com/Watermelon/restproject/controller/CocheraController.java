@@ -31,9 +31,9 @@ public class CocheraController extends BaseController<CocheraDao, Cochera>{
 		return getService().findCocheras();
 	}
 	
-	@RequestMapping(value = "/{id}/cocheras", method = RequestMethod.GET)
-	public @ResponseBody List<Cochera> cocheras(@PathVariable Integer id) {
-		return getService().findAllByPlanta(id);
+	@RequestMapping(value = "/{floor}/cocheras", method = RequestMethod.GET)
+	public @ResponseBody List<Cochera> cocheras(@PathVariable Integer floor) {
+		return getService().findAllByPlanta(floor);
 	}
 
 }
