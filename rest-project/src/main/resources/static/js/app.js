@@ -70,18 +70,13 @@ app.config(function($routeProvider, $httpProvider) {
 				
 	            }).when('/clientes/:clientid/vehiculos', {
 	    			
-					templateUrl : 'views/clientes-vehiculos.html',
+					templateUrl : 'views/vehiculos-nuevo.html',
 					controller : 'vehiculosAltaController'
 
 	            }).when('/clientes/:clientid/descuentos', {
 	    			
 					templateUrl : 'views/clientes-descuentos.html',
 					controller : 'ClientedescuentosController'
-
-//	            }).when('/vehiculos/:customerid/nuevo', {
-//			
-//					templateUrl : 'views/vehiculos-nuevo.html',
-//					controller : 'NuevovehiculoController'
 
 	            }).when('/vehiculos/buscar', {
 			

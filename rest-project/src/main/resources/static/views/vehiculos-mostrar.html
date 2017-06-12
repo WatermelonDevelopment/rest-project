@@ -13,7 +13,7 @@
                 <form class="form-horizontal" ng-submit="save()">
                     <div class="form-group">
                         
-                        <label class="col-sm-2 control-label">NÃºmero</label>
+                        <label class="col-sm-2 control-label">Número</label>
                         <div class="col-sm-4">
                             <p class="form-control-static">{{ car.id }}</p>
                         </div>
@@ -42,6 +42,23 @@
                             <input type="text" class="form-control" ng-model="car.patente">
                         </div>
                     </div>
+                     <div class="hr-line-dashed"></div>
+                     <div class="form-group">
+                    
+                        <label class="col-sm-2 control-label">Planta</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="car.planta" ng-options="x for x in floors" ng-change="getslots(car.planta)">
+							</select>
+                        </div>
+                    
+                        <label class="col-sm-2 control-label">Cochera</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="car.cochera" 
+                             ng-options="y as (y.planta + '-' + y.numero + '-' + y.vehiculo.patente) for y in slots">
+                            	
+							</select>
+                        </div>
+                    </div>
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
@@ -49,6 +66,7 @@
                         </div>
                         <div class="col-sm-4">
                             <button class="btn btn-primary" type="submit">Guardar</button>
+                           <!--  <button type="button" class="btn" ng-click="cancelEdit()">Cancelar</button> -->
                         </div>
                     </div>
                 </form>

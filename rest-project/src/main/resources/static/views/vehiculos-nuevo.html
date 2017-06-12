@@ -13,33 +13,59 @@
                 <form class="form-horizontal" ng-submit="create()">
                     <div class="form-group">
                         
-                        <label class="col-sm-2 control-label">NÃºmero</label>
+                        <label class="col-sm-2 control-label">Número</label>
                         <div class="col-sm-4">
                             <p class="form-control-static">{{ car.id }}</p>
                         </div>
+                        
+                        <label class="col-sm-2 control-label">Cliente</label>
+                        <div class="col-sm-4">
+                            <p class="form-control-static">{{ customer.id }} - {{ customer.apellido }}, {{ customer.nombre }}</p>
+                        </div>
 
+                    </div>
+
+                    <div class="form-group">        
+                    
                         <label class="col-sm-2 control-label">Fecha de Ingreso</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" ng-model="car.fechaDeIngreso" ng-disabled="car.id">
-                         </div>
-                    </div>
-
-                    <div class="form-group">           
+                         </div>         
+                       
                         <label class="col-sm-2 control-label">Marca</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" ng-model="car.marca" ng-disabled="car.id">
                         </div>
 
+                    </div>
+
+                    <div class="form-group">
+                    
                         <label class="col-sm-2 control-label">Modelo</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" ng-model="car.modelo" ng-disabled="car.id">
                         </div>
-                    </div>
-
-                    <div class="form-group">
+                    
                         <label class="col-sm-2 control-label">Patente</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" ng-model="car.patente" ng-disabled="car.id">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                    
+                        <label class="col-sm-2 control-label">Planta</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="car.planta" ng-disabled="car.id" ng-options="x for x in floors" ng-change="getslots(car.planta)">
+							</select>
+                        </div>
+                    
+                        <label class="col-sm-2 control-label">Cochera</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="car.cochera" ng-disabled="car.id"
+                             ng-options="y as (y.planta + '-' + y.numero + '-' + y.vehiculo.patente) for y in slots">
+                            	
+							</select>
                         </div>
                     </div>
 

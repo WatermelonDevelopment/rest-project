@@ -1,8 +1,3 @@
-app.controller('NuevovehiculoController', function($scope, $http, $routeParams, DateTimeService) {
-        
-    
-});
-
 app.controller('BuscarvehiculoController', function($scope, $http) {
 
     $scope.searchParams = {};
@@ -45,14 +40,26 @@ app.controller('VehiculoController', function($scope, $http, $routeParams) {
     $carid = $routeParams.carid;
     $scope.alert = { show: false };
     $scope.car = {};
+    $scope.floors = {};
+    $scope.slots = {};
     $scope.init = function () {
 
         $http.get("/vehiculo/" + $carid)
             .then(function (response) {
                 console.log (response);
                 $scope.car = response.data;
-            });    
+            });
+        $http.get("/cochera/plantas").then(function(response) {
+			console.log(response);
+			$scope.floors = response.data;
+		});
     }
+    $scope.getslots = function(floor) {
+		$http.get("/cochera/" + floor + "/cocheras").then(function(response) {
+			console.log(response);
+			$scope.slots = response.data;
+		});
+	}
 
 });
 
@@ -64,6 +71,7 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
     $scope.car = {};
     $scope.floors = {};
     $scope.slots = {};
+    
 
     $scope.init = function () {
 
@@ -108,4 +116,8 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
            };
         });    
     }
+    
+   /* $scope.cancelEdit() {
+    	alert("Hola");
+    }*/
 });
