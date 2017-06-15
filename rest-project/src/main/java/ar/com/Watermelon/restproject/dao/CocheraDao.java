@@ -12,7 +12,6 @@ import ar.com.Watermelon.restproject.model.Vehiculo;
 @Transactional
 public interface CocheraDao extends BaseDao<Cochera> {
 	
-	
 	Cochera findOneByVehiculo(Vehiculo vehiculo);
 	
 	@Query("select sum(c.categoria.precio) from Cochera c where c.vehiculo.cliente = ?1")

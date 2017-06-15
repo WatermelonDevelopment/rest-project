@@ -78,11 +78,11 @@ app.config(function($routeProvider, $httpProvider) {
 					templateUrl : 'views/clientes-descuentos.html',
 					controller : 'ClientedescuentosController'
 
-	            }).when('/vehiculos/buscar', {
+	         /*   }).when('/vehiculos/buscar', {
 			
 					templateUrl : 'views/vehiculos-busqueda.html',
 					controller : 'BuscarvehiculoController'
-
+*/
 	            }).when('/vehiculos/:carid/busqueda', {
 			
 					templateUrl : 'views/vehiculos-mostrar.html',

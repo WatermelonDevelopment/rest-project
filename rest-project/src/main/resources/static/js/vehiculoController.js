@@ -35,24 +35,71 @@ app.controller('BuscarvehiculoController', function($scope, $http) {
 
 });
 
-app.controller('VehiculoController', function($scope, $http, $routeParams) {
+app.controller('VehiculoController', function($scope, $http, $routeParams, $location) {
 
     $carid = $routeParams.carid;
     $scope.alert = { show: false };
     $scope.car = {};
-    $scope.floors = {};
-    $scope.slots = {};
+    $scope.floors = [];
+    $scope.slots = [];
     $scope.init = function () {
 
         $http.get("/vehiculo/" + $carid)
             .then(function (response) {
                 console.log (response);
                 $scope.car = response.data;
+                
             });
-        $http.get("/cochera/plantas").then(function(response) {
-			console.log(response);
-			$scope.floors = response.data;
-		});
+        $http.get("/vehiculo/" + $carid + "/cochera")
+	        .then(function (response) {
+	        	console.log (response);
+	        	var cochera = response.data;
+	        	
+	        	$http.get("/cochera/plantas").then(function(response) {
+	        		console.log(response);
+	        		$scope.floors = response.data;
+	        		$scope.car.planta =  cochera.planta;
+	        		
+	        		$http.get("/cochera/" + $scope.car.planta + "/cocheras").then(function(response) {
+	        			console.log(response);
+	        			$scope.slots = response.data;
+	        			$scope.car.cochera = cochera;
+	        		});
+	        	});
+	        });
+    }
+    
+//    $scope.save = function() {
+////{$scope.car,$scope.car.cochera}
+//    	var asignacion = {
+//    		"vehiculo":$scope.car,
+//    		"idCochera":$scope.car.cochera
+//    	}
+//    		
+//        $http.post("/vehiculo/update", asignacion)
+//            .then(function (response) {
+//            	 console.log (response);
+//                 $scope.car = response.data;
+//                 $location.path("clientes/" + $scope.car.cliente.id + "/mostrar");
+//            });    
+//
+//    }
+    
+    $scope.save = function() {
+        $http.post("/vehiculo/", $scope.car)
+	        .then(function (response) {
+	        	 console.log (response);
+	        	 var cochera = $scope.car.cochera
+	             $scope.car = response.data;
+	             $http.post("/cochera/guardarEnrocar", cochera)
+		              .then(function (response) {
+		        	 console.log (response);
+	             $location.path("clientes/" + $scope.car.cliente.id + "/mostrar");
+		         });    
+    	    });
+    }
+    $scope.cancelEdit = function() {
+    	$location.path("clientes/" + $scope.car.cliente.id + "/mostrar");
     }
     $scope.getslots = function(floor) {
 		$http.get("/cochera/" + floor + "/cocheras").then(function(response) {
@@ -63,7 +110,7 @@ app.controller('VehiculoController', function($scope, $http, $routeParams) {
 
 });
 
-app.controller('vehiculosAltaController', function($scope, $http, $routeParams, DateTimeService) {
+app.controller('vehiculosAltaController', function($scope, $http, $routeParams, DateTimeService, $location) {
     
     $customerid = $routeParams.clientid;
     $scope.alert = { show: false };
@@ -76,11 +123,6 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
     $scope.init = function () {
 
     	$scope.car.fechaDeIngreso = DateTimeService.datetime;
-//            $http.get("/vehiculo/" + $carid)
-//                .then(function (response) {
-//                    console.log (response);
-//                    $scope.car = response.data;
-//                });    
 
 		$http.get("/cliente/" + $customerid).then(function(response) {
 			console.log(response);
@@ -107,17 +149,11 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
         .then(function (response) {
             console.log (response);
             $scope.car = response.data;
-
-            $scope.alert = { show: true, 
-            	type: "alert-success", 
-            	message: "Vehiculo creado correctamente.", 
-            	link: "clientes/" + $scope.customer.id + "/mostrar", 
-            	text: "Ver cliente"
-           };
+            $location.path("clientes/" + $scope.customer.id + "/mostrar");
         });    
     }
     
-   /* $scope.cancelEdit() {
-    	alert("Hola");
-    }*/
+//    $scope.cancelEdit = function() {
+//    	alert('Hola');
+//    }
 });

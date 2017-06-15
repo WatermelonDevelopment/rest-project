@@ -54,7 +54,7 @@
                         <label class="col-sm-2 control-label">Cochera</label>
                         <div class="col-sm-4">
                             <select class="form-control" ng-model="car.cochera" 
-                             ng-options="y as (y.planta + '-' + y.numero + '-' + y.vehiculo.patente) for y in slots">
+                             ng-options="y as (y.planta + '-' + y.numero + '-' + y.vehiculo.patente) for y in slots track by y.id">
                             	
 							</select>
                         </div>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-sm-4">
                             <button class="btn btn-primary" type="submit">Guardar</button>
-                           <!--  <button type="button" class="btn" ng-click="cancelEdit()">Cancelar</button> -->
+                            <button type="button" class="btn btn-danger" ng-click="cancelEdit()">Cancelar</button>
                         </div>
                     </div>
                 </form>

@@ -32,5 +32,5 @@ public class VehiculoController extends BaseController<VehiculoDao, Vehiculo>{
 		return cocheraDao.findOneByVehiculo(v);
 	}
 	
-
+	
 }
