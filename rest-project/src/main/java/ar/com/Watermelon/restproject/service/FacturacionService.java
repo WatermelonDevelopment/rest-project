@@ -62,25 +62,34 @@ public class FacturacionService {
 			liquidacion.setFecha(sdf.format(new Date()));
 			Float monto = cocheraDao.findAllCocherasByCliente(cliente);
 			if(monto != null) {
-				calcularDescuentos(monto, cliente);
+				monto = calcularDescuentos(monto, cliente);
 				liquidacion.setMonto(monto);
 				liquidacionDao.save(liquidacion);
+				System.out.println("Liquidacion generada para " + cliente.getId() + ", con fecha " + liquidacion.getFecha());
 			} else {
-				System.out.println("asdas");
+				System.out.println("Error");
 			}
 		}
 		return liquidacion;
 	}
 
-	private void calcularDescuentos(Float monto, Cliente cliente) {
+	private float calcularDescuentos(Float monto, Cliente cliente) {
 		List<Descuento> descuentos = descuentoDao.findAllByCliente(cliente);
+		float descuentoFijo = 0;
+		float descuentoPorcentaje = 0;
 		for (Descuento d : descuentos) {
-			if (d.getTipo() == tipoDescuento.FIJO) {
-				monto-= d.getValor();
-			} else {
-				
+			switch(d.getTipo()) {
+				case FIJO:
+					descuentoFijo += d.getValor();
+					break;
+				case PORCENTAJE:
+					descuentoPorcentaje += d.getValor();
+					break;
 			}
 		}
+		
+		float result = monto * (100 - descuentoPorcentaje)/100 - descuentoFijo;
+		return result > 0 ? result : 0;
 	}
 
 //	second, minute, hour, day of month, month, day(s) of week
