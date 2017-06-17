@@ -46,11 +46,16 @@ public class CocheraController extends BaseController<CocheraDao, Cochera>{
 	@RequestMapping(value = "/guardarEnrocar", method = RequestMethod.POST)
 	public @ResponseBody Cochera guardarEnrocar(@RequestBody Cochera cocheraChanged) {
 		Cochera cocheraReal = getService().findOne(cocheraChanged.getId());
-		if (cocheraReal.getVehiculo() != null && cocheraReal.getVehiculo().getId() != cocheraChanged.getVehiculo().getId()) {
+		if (cocheraReal.getVehiculo() != null) {
+			if (cocheraReal.getVehiculo().getId() == cocheraChanged.getVehiculo().getId()) {
+				return cocheraChanged; 
+			}
 			Vehiculo vehiculoAux = cocheraReal.getVehiculo();
 			Cochera cocheraAux = getService().findOneByVehiculo(cocheraChanged.getVehiculo());
 			cocheraAux.setVehiculo(vehiculoAux);
 			getService().save(cocheraAux);
+		} else {
+			getService().findOneByVehiculo(cocheraChanged.getVehiculo()).setVehiculo(null);
 		}
 		getService().save(cocheraChanged);
 		onUpdateSuccess(cocheraChanged);

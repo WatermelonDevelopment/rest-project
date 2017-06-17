@@ -71,14 +71,16 @@ app.controller('VehiculoController', function($scope, $http, $routeParams, $loca
     }
     
     $scope.save = function() {
-    	var r = confirm('Esta seguro que desea realizar este cambio?\n' 
-    			+  $scope.car.marca + ' ' + $scope.car.modelo + ' dominio ' + $scope.car.patente 
-    			+ ' a cochera ' 
-    			+ $scope.car.cochera.planta + '-' + $scope.car.cochera.numero 
-    			+ '\nLa cochera ' + $scope.car.cochera.planta + '-' + $scope.car.cochera.numero 
-    			+ 'esta ocupada por ' + $scope.car.cochera.vehiculo.marca + ' ' 
-    			+ $scope.car.cochera.vehiculo.modelo + ' y se pasará a la cochera '
-    			+ $scope.slot.planta + '-' + $scope.slot.numero);
+    	var message = 'Esta seguro que desea realizar este cambio?\n' 
+    		+  $scope.car.marca + ' ' + $scope.car.modelo + ' dominio ' + $scope.car.patente 
+    		+ ' a cochera ' + $scope.car.cochera.planta + '-' + $scope.car.cochera.numero ;
+    	if($scope.car.cochera.vehiculo != undefined) {
+    		message += '\nLa cochera ' + $scope.car.cochera.planta + '-' + $scope.car.cochera.numero 
+			+ ' está ocupada por ' + $scope.car.cochera.vehiculo.marca + ' ' 
+			+ $scope.car.cochera.vehiculo.modelo + ' y se pasará a la cochera '
+			+ $scope.slot.planta + '-' + $scope.slot.numero;
+    	}
+    	var r = confirm(message);
     	if (r == true) {
 	        $http.post("/vehiculo/", $scope.car)
 		        .then(function (response) {
