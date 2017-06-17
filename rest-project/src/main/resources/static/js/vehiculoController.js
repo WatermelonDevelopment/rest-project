@@ -42,6 +42,7 @@ app.controller('VehiculoController', function($scope, $http, $routeParams, $loca
     $scope.car = {};
     $scope.floors = [];
     $scope.slots = [];
+    $scope.slot = {};
     $scope.init = function () {
 
         $http.get("/vehiculo/" + $carid)
@@ -53,51 +54,46 @@ app.controller('VehiculoController', function($scope, $http, $routeParams, $loca
         $http.get("/vehiculo/" + $carid + "/cochera")
 	        .then(function (response) {
 	        	console.log (response);
-	        	var cochera = response.data;
+	        	$scope.slot = response.data;
 	        	
 	        	$http.get("/cochera/plantas").then(function(response) {
 	        		console.log(response);
 	        		$scope.floors = response.data;
-	        		$scope.car.planta =  cochera.planta;
+	        		$scope.car.planta =  $scope.slot.planta;
 	        		
 	        		$http.get("/cochera/" + $scope.car.planta + "/cocheras").then(function(response) {
 	        			console.log(response);
 	        			$scope.slots = response.data;
-	        			$scope.car.cochera = cochera;
+	        			$scope.car.cochera = $scope.slot;
 	        		});
 	        	});
 	        });
     }
     
-//    $scope.save = function() {
-////{$scope.car,$scope.car.cochera}
-//    	var asignacion = {
-//    		"vehiculo":$scope.car,
-//    		"idCochera":$scope.car.cochera
-//    	}
-//    		
-//        $http.post("/vehiculo/update", asignacion)
-//            .then(function (response) {
-//            	 console.log (response);
-//                 $scope.car = response.data;
-//                 $location.path("clientes/" + $scope.car.cliente.id + "/mostrar");
-//            });    
-//
-//    }
-    
     $scope.save = function() {
-        $http.post("/vehiculo/", $scope.car)
-	        .then(function (response) {
-	        	 console.log (response);
-	        	 var cochera = $scope.car.cochera
-	             $scope.car = response.data;
-	        	 cochera.vehiculo = $scope.car;
-	             $http.post("/cochera/guardarEnrocar", cochera)
-		              .then(function (response) {
+    	var r = confirm('Esta seguro que desea realizar este cambio?\n' 
+    			+  $scope.car.marca + ' ' + $scope.car.modelo + ' dominio ' + $scope.car.patente 
+    			+ ' a cochera ' 
+    			+ $scope.car.cochera.planta + '-' + $scope.car.cochera.numero 
+    			+ '\nLa cochera ' + $scope.car.cochera.planta + '-' + $scope.car.cochera.numero 
+    			+ 'esta ocupada por ' + $scope.car.cochera.vehiculo.marca + ' ' 
+    			+ $scope.car.cochera.vehiculo.modelo + ' y se pasará a la cochera '
+    			+ $scope.slot.planta + '-' + $scope.slot.numero);
+    	if (r == true) {
+	        $http.post("/vehiculo/", $scope.car)
+		        .then(function (response) {
 		        	 console.log (response);
-	             $location.path("clientes/" + $scope.car.cliente.id + "/mostrar");
+		        	 var cochera = $scope.car.cochera
+		             $scope.car = response.data;
+		        	 cochera.vehiculo = $scope.car;
+		             $http.post("/cochera/guardarEnrocar", cochera)
+			              .then(function (response) {
+			        	 console.log (response);
+	//	             $location.path("clientes/" + $scope.car.cliente.id + "/mostrar");
+			         $location.path("/cocheras/buscar");
 		         });    
     	    });
+    	}
     }
     $scope.cancelEdit = function() {
     	$location.path("clientes/" + $scope.car.cliente.id + "/mostrar");
