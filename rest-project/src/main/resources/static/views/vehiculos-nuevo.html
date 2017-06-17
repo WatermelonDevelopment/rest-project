@@ -13,10 +13,6 @@
                 <form class="form-horizontal" ng-submit="create()">
                     <div class="form-group">
                         
-                        <label class="col-sm-2 control-label">Número</label>
-                        <div class="col-sm-4">
-                            <p class="form-control-static">{{ car.id }}</p>
-                        </div>
                         
                         <label class="col-sm-2 control-label">Cliente</label>
                         <div class="col-sm-4">
@@ -52,18 +48,19 @@
                         </div>
                     </div>
                     
-                    <div class="form-group">
+                    <div class="hr-line-dashed"></div>
+                     <div class="form-group">
                     
                         <label class="col-sm-2 control-label">Planta</label>
                         <div class="col-sm-4">
-                            <select class="form-control" ng-model="car.planta" ng-disabled="car.id" ng-options="x for x in floors" ng-change="getslots(car.planta)">
+                            <select class="form-control" ng-model="car.planta" ng-options="x for x in floors" ng-change="getslots(car.planta)">
 							</select>
                         </div>
                     
                         <label class="col-sm-2 control-label">Cochera</label>
                         <div class="col-sm-4">
-                            <select class="form-control" ng-model="car.cochera" ng-disabled="car.id"
-                             ng-options="y as (y.planta + '-' + y.numero + '-' + y.vehiculo.patente) for y in slots">
+                            <select class="form-control" ng-model="car.cochera" 
+                             ng-options="y as (y.planta + '-' + y.numero + '-' + y.vehiculo.patente) for y in slots track by y.id">
                             	
 							</select>
                         </div>

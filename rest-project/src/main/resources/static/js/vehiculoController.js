@@ -142,15 +142,21 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
 	}
         
     $scope.create = function() {
-
-    	$scope.car.cliente = $scope.customer;
-        $http.post("/vehiculo/", $scope.car)
-        .then(function (response) {
-            console.log (response);
-            $scope.car = response.data;
-            $location.path("clientes/" + $scope.customer.id + "/mostrar");
-        });    
-    }
+    		$scope.car.cliente = $scope.customer;
+	        $http.post("/vehiculo/", $scope.car)
+		        .then(function (response) {
+		        	 console.log (response);
+		        	 var cochera = $scope.car.cochera
+		             $scope.car = response.data;
+		        	 cochera.vehiculo = $scope.car;
+		             $http.post("/cochera/guardar", cochera)
+			              .then(function (response) {
+			        	 console.log (response);
+		             $location.path("clientes/" + $scope.customer.id + "/mostrar");
+		         });    
+    	    });
+    	}
+    
     
 //    $scope.cancelEdit = function() {
 //    	alert('Hola');

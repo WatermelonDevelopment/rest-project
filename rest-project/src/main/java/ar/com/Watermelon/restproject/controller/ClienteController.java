@@ -86,7 +86,7 @@ public class ClienteController extends BaseController<ClienteDao, Cliente>{
 		return result;
 		}
 
-	@RequestMapping(value = "/{idFactura}", method = RequestMethod.POST)
+	@RequestMapping(value = "/{idFactura}/pagar", method = RequestMethod.POST)
 	public @ResponseBody void pagar(@PathVariable Long idFactura) {
 		Date fecha = new Date(); 
 		liquidacionDao.pagar(fecha, idFactura);
