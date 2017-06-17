@@ -91,6 +91,7 @@ app.controller('VehiculoController', function($scope, $http, $routeParams, $loca
 	        	 console.log (response);
 	        	 var cochera = $scope.car.cochera
 	             $scope.car = response.data;
+	        	 cochera.vehiculo = $scope.car;
 	             $http.post("/cochera/guardarEnrocar", cochera)
 		              .then(function (response) {
 		        	 console.log (response);
