@@ -3317,7 +3317,7 @@ ol.unstyled {
 }
 /* FOOTER */
 .footer {
-  background: none repeat scroll 0 0 white;
+  background: none repeat scroll 0 0 #C9EBF8;
   border-top: 1px solid #e7eaec;
   bottom: 0;
   left: 0;
@@ -3671,10 +3671,17 @@ table.table-mail tr td {
   left: auto;
   right: 0;
 }
+img#nav {
+	display: block;
+    margin: auto;
+}
 /* BACKGROUNDS */
 .gray-bg {
   background-color: #f3f3f4;
+  background-image: url('../img/blue.png');
+  background-size:100%;
 }
+
 .white-bg {
   background-color: #ffffff;
 }
