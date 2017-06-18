@@ -135,7 +135,7 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
 	}
 
 	$scope.getslots = function(floor) {
-		$http.get("/cochera/" + floor + "/cocheras").then(function(response) {
+		$http.get("/cochera/" + floor + "/cocherasLibres").then(function(response) {
 			console.log(response);
 			$scope.slots = response.data;
 		});

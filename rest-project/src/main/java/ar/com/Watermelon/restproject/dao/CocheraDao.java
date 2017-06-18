@@ -21,4 +21,7 @@ public interface CocheraDao extends BaseDao<Cochera> {
 	List<Integer> findCocheras();
 
 	List<Cochera> findAllByPlanta(Integer floor);
+
+	@Query("from Cochera c where c.planta = ?1 and c.vehiculo = null")
+	List<Cochera> findAllLibresByPlanta(Integer floor);
 }

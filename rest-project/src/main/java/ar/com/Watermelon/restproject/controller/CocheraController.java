@@ -37,6 +37,11 @@ public class CocheraController extends BaseController<CocheraDao, Cochera>{
 		return getService().findAllByPlanta(floor);
 	}
 	
+	@RequestMapping(value = "/{floor}/cocherasLibres", method = RequestMethod.GET)
+	public @ResponseBody List<Cochera> cocherasLibres(@PathVariable Integer floor) {
+		return getService().findAllLibresByPlanta(floor);
+	}
+	
 	/**
 	 * moves a Vehiculo to a Cochera. If the cochera was not empty, also moves that Vehiculo to the Cochera that the vehicle being moved in this method was using
 	 * cocheraReal: actual persisted cochera, with the Vehiculo it holds before calling this method
