@@ -21,7 +21,7 @@ app.controller('ClientedescuentosController', function($scope, $http, $routePara
         $http.post("/descuento/", $scope.discount)
             .then(function (response) {
             	 console.log (response);
-                 $scope.customer = response.data;
+                 $scope.discount = response.data;
                  $location.path("clientes/" + $scope.customer.id + "/mostrar");
             });    
     }
