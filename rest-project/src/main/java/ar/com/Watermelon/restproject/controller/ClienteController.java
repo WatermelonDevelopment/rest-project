@@ -92,6 +92,32 @@ public class ClienteController extends BaseController<ClienteDao, Cliente>{
 		liquidacionDao.pagar(fecha, idFactura);
 	}
 	
+	@RequestMapping(value = "/{id}/borrar", method = RequestMethod.DELETE)
+	public @ResponseBody String borrar(@PathVariable Long id){
+		Cliente cliente = getService().findOne(id);
+		List<Descuento> descuentos = descuentoDao.findAllByCliente(cliente);
+		for (Descuento d : descuentos ) {
+			descuentoDao.delete(d);
+		}
+		List<Liquidacion> liquidaciones = liquidacionDao.findAllByCliente(cliente);
+		for (Liquidacion l : liquidaciones ) {
+			liquidacionDao.delete(l);
+		}
+		List<Vehiculo> vehiculos = vehiculoDao.findAllByCliente(cliente);
+		for(Vehiculo v : vehiculos) {
+			cocheraDao.findOneByVehiculo(v).setVehiculo(null);
+			vehiculoDao.delete(v);
+		}
+		//delete cars
+		try{
+			
+			getService().delete(id);
+		}catch(Exception e){
+			return "Error: " + e.getMessage();
+		}
+		return "OK";
+	}
+	
 
 	public class LiquidacionResponse {
 		private Liquidacion liquidacion;

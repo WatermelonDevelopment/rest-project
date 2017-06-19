@@ -53,7 +53,7 @@ app.controller('BuscarclienteController', function($scope, $http) {
 
     	if (r == true) {
     		$.ajax({
-    		    url: '/cliente/' + user.id,
+    		    url: '/cliente/' + user.id + '/borrar',
     		    type: 'DELETE',
     		    success: function(response) {
     		    	console.log (response);
