@@ -32,5 +32,18 @@ public class VehiculoController extends BaseController<VehiculoDao, Vehiculo>{
 		return cocheraDao.findOneByVehiculo(v);
 	}
 	
+	@RequestMapping(value = "/{id}/borrar", method = RequestMethod.DELETE)
+	public @ResponseBody String borrar(@PathVariable Long id){
+		
+		try{
+			Vehiculo v = getService().findOne(id);
+			cocheraDao.findOneByVehiculo(v).setVehiculo(null);
+			getService().delete(id);
+		}catch(Exception e){
+			return "Error: " + e.getMessage();
+		}
+		return "OK";
+	}
+	
 	
 }

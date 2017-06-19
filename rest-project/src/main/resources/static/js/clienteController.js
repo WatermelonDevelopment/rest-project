@@ -139,7 +139,7 @@ app.controller('ClienteController', function($scope, $http, $routeParams) {
 
     	if (r == true) {
     		$.ajax({
-    		    url: '/vehiculo/' + vehiculo.id,
+    		    url: '/vehiculo/' + vehiculo.id + '/borrar',
     		    type: 'DELETE',
     		    success: function(response) {
     		        // Do something with the result
