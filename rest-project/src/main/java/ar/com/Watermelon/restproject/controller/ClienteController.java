@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +17,7 @@ import ar.com.Watermelon.restproject.dao.DescuentoDao;
 import ar.com.Watermelon.restproject.dao.LiquidacionDao;
 import ar.com.Watermelon.restproject.dao.VehiculoDao;
 import ar.com.Watermelon.restproject.model.Cliente;
+import ar.com.Watermelon.restproject.model.Cochera;
 import ar.com.Watermelon.restproject.model.Descuento;
 import ar.com.Watermelon.restproject.model.Liquidacion;
 import ar.com.Watermelon.restproject.model.Vehiculo;
@@ -105,7 +105,8 @@ public class ClienteController extends BaseController<ClienteDao, Cliente>{
 		}
 		List<Vehiculo> vehiculos = vehiculoDao.findAllByCliente(cliente);
 		for(Vehiculo v : vehiculos) {
-			cocheraDao.findOneByVehiculo(v).setVehiculo(null);
+			Cochera c = cocheraDao.findOneByVehiculo(v);
+			if (c != null)c.setVehiculo(null); 
 			vehiculoDao.delete(v);
 		}
 		//delete cars

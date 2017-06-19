@@ -62,48 +62,78 @@ app.controller('VehiculoController', function($scope, $http, $routeParams, $loca
 	        		console.log(response);
 	        		$scope.floors = response.data;
 	        		$scope.car.planta =  $scope.slot.planta;
-	        		
-	        		$http.get("/cochera/" + $scope.car.planta + "/cocheras").then(function(response) {
-	        			console.log(response);
-	        			$scope.slots = response.data;
-	        			$scope.car.cochera = $scope.slot;
-	        		});
+	        		if ($scope.car.planta != undefined) {
+		        		$http.get("/cochera/" + $scope.car.planta + "/cocheras")
+		        		.then(function(response) {
+		        			console.log(response);
+		        			$scope.slots = response.data;
+		        			$scope.car.cochera = $scope.slot;
+		        		});
+	        		}
 	        	});
 	        });
     }
     
     $scope.save = function() { 
-    	$http.post("/vehiculo/", $scope.car)
-        .then(function (response) {
-        	 console.log (response);
-        	 var cochera = $scope.car.cochera
-             $scope.car = response.data;
-        	 var originalCar = cochera.vehiculo
-        	 cochera.vehiculo = $scope.car;
-        	 if($scope.originalSlot.id != cochera.id) {
-    		
-        		 	var message = 'Esta seguro que desea realizar este cambio?\n' 
-        		 		+  $scope.car.marca + ' ' + $scope.car.modelo + ' dominio '
-        		 		+ $scope.car.patente + ' a cochera ' + cochera.planta
-        		 		+ '-' + cochera.numero;
-        		 	if(originalCar != undefined) {
-        		 		message += '\nLa cochera ' + cochera.planta 
-        		 		+ '-' + cochera.numero 
-        		 		+ ' está ocupada por ' + originalCar.marca + ' ' 
-        		 		+ originalCar.modelo + ' y se pasará a la cochera '
-        		 		+ $scope.slot.planta + '-' + $scope.slot.numero;
-        		 	}
-        		 	var r = confirm(message);
-        		 	if (r == true) {
-			             $http.post("/cochera/guardarEnrocar", cochera)
-				              .then(function (response) {
-				        	 console.log (response);
-				         
-				         });    
-        		 	}
-        	 }
-        	 $location.path("/cocheras/buscar");
-        });
+    	 var validated = false;
+     	var resultValidations = 'Verifique los siguientes campos: '
+     		
+     	var patente = $scope.car.patente;
+     	var patenteRegex = /^(([A-Z]{3}|[a-z]{3})\d{3}|([A-Z]{2}|[a-z]{2})\d{3}([A-Z]{2}|[a-z]{2}))$/;
+    	if(patenteRegex.test(patente) === false) {
+    		resultValidations += " - Patente invalido";
+    	}
+     	var brand = $scope.car.marca;
+     	if (brand.length < 2) {
+         	resultValidations += " - Marca invalido";
+         }
+     	var model = $scope.car.modelo;
+         if (model.length < 0) {
+         	resultValidations += " - Modelo invalido";
+         }
+     	if (resultValidations == 'Verifique los siguientes campos: ') {
+     		validated = true;
+     	}
+     	if (validated == true) {
+	    	$http.post("/vehiculo/", $scope.car)
+	        .then(function (response) {
+	        	 console.log (response);
+	        	 var cochera = $scope.car.cochera
+	             $scope.car = response.data;
+	        	 var originalCar = cochera.vehiculo
+	        	 cochera.vehiculo = $scope.car;
+	        	 if($scope.originalSlot.id != cochera.id) {
+	    		
+	        		 	var message = 'Esta seguro que desea realizar este cambio?\n' 
+	        		 		+  $scope.car.marca + ' ' + $scope.car.modelo + ' dominio '
+	        		 		+ $scope.car.patente + ' a cochera ' + cochera.planta
+	        		 		+ '-' + cochera.numero;
+	        		 	if(originalCar != undefined) {
+	        		 		message += '\nLa cochera ' + cochera.planta 
+	        		 		+ '-' + cochera.numero 
+	        		 		+ ' está ocupada por ' + originalCar.marca + ' ' 
+	        		 		+ originalCar.modelo + ' y se pasará a la cochera '
+	        		 		+ $scope.slot.planta + '-' + $scope.slot.numero;
+	        		 	}
+	        		 	var r = confirm(message);
+	        		 	if (r == true) {
+				             $http.post("/cochera/guardarEnrocar", cochera)
+					              .then(function (response) {
+					        	 console.log (response);
+					         
+					         });    
+	        		 	}
+	        	 }
+	        	 $location.path("/cocheras/buscar");
+	        });
+     	} else {
+            $scope.alert = { show: true, 
+                    type: "alert-warning", 
+                    message: resultValidations, 
+                    link: "", 
+                    text: ""
+                  };        		
+    	}
     }
     $scope.cancelEdit = function() {
     	$location.path("clientes/" + $scope.car.cliente.id + "/mostrar");
@@ -122,7 +152,7 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
     $customerid = $routeParams.clientid;
     $scope.alert = { show: false };
     $scope.customer = {};
-    $scope.car = {};
+    $scope.car = {'marca': '', 'modelo': '', 'patente': ''};
     $scope.floors = {};
     $scope.slots = {};
     
@@ -156,9 +186,10 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
     	var resultValidations = 'Verifique los siguientes campos: '
     		
     	var patente = $scope.car.patente;
-    	if (patente.length < 2) {
-        	resultValidations += " - Patente invalido";
-        }
+    	var patenteRegex = /^(([A-Z]{3}|[a-z]{3})\d{3}|([A-Z]{2}|[a-z]{2})\d{3}([A-Z]{2}|[a-z]{2}))$/;
+    	if(patenteRegex.test(patente) === false) {
+    		resultValidations += " - Patente invalido";
+    	}
     	var brand = $scope.car.marca;
     	if (brand.length < 2) {
         	resultValidations += " - Marca invalido";
@@ -166,6 +197,9 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
     	var model = $scope.car.modelo;
         if (model.length < 0) {
         	resultValidations += " - Modelo invalido";
+        }
+        if ($scope.car.cochera === undefined) {
+        	resultValidations += " - Debe seleccionar una cochera";
         }
     	if (resultValidations == 'Verifique los siguientes campos: ') {
     		validated = true;
@@ -179,12 +213,16 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
 		        	 console.log (response);
 		        	 var cochera = $scope.car.cochera
 		             $scope.car = response.data;
-		        	 cochera.vehiculo = $scope.car;
-		             $http.post("/cochera/guardar", cochera)
-			              .then(function (response) {
-			        	 console.log (response);
-		             $location.path("clientes/" + $scope.customer.id + "/mostrar");
-		         });    
+		        	 if(cochera != undefined) {
+			        	 cochera.vehiculo = $scope.car;
+			             $http.post("/cochera/guardar", cochera)
+				              .then(function (response) {
+				        	 console.log (response);
+				        	 $location.path("clientes/" + $scope.customer.id + "/mostrar");
+				         });   
+		        	 } else {
+		        		 $location.path("clientes/" + $scope.customer.id + "/mostrar");
+		        	 }
     	    });
     	} else {
             $scope.alert = { show: true, 

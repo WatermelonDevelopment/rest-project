@@ -37,7 +37,10 @@ public class VehiculoController extends BaseController<VehiculoDao, Vehiculo>{
 		
 		try{
 			Vehiculo v = getService().findOne(id);
-			cocheraDao.findOneByVehiculo(v).setVehiculo(null);
+			Cochera c = cocheraDao.findOneByVehiculo(v);
+			if (c != null) {
+				c.setVehiculo(null);
+			}
 			getService().delete(id);
 		}catch(Exception e){
 			return "Error: " + e.getMessage();
