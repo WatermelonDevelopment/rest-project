@@ -54,8 +54,9 @@
                         <label class="col-sm-2 control-label">Cochera</label>
                         <div class="col-sm-4">
                             <select class="form-control" ng-model="car.cochera" 
-                             ng-options="y as (y.planta + '-' + y.numero + '-' + y.vehiculo.patente) for y in slots track by y.id">
-                            	
+                             ng-options="y as (y.planta + '-' + y.numero + ' ' + y.vehiculo.marca 
+                             + ' ' + y.vehiculo.modelo 
+                             + ' ' + y.vehiculo.patente) for y in slots track by y.id">
 							</select>
                         </div>
                     </div>
