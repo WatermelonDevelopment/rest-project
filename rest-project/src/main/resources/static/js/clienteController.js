@@ -1,15 +1,38 @@
 /* ================= alta Cliente ===================================================
- * 
  */
-
-app.controller('NuevoclienteController', function($scope, $http, $location) {
+app.controller('NuevoclienteController', function($scope, $http, DateTimeService, $location) {
 
     $scope.alert = { show: false };
-    $scope.customer = { };
-    resultValidations = '';
+    $scope.customer = { 'nombre': '', 'apellido': '', 'telefono': '', 'domicilio': ''};
+	$scope.customer.fechaIngreso = DateTimeService.datetime;
     
-    $scope.create = function() {      	
-    	if ($scope.customerForm.$valid) {
+    $scope.create = function() {    
+    	
+    	// validaciones temp
+    	var validated = false;
+    	var resultValidations = 'Verifique los siguientes campos: '
+    		
+    	var name = $scope.customer.nombre;
+    	if (name.length < 3) {
+        	resultValidations += " - Nombre invalido";
+        }
+    	var lname = $scope.customer.apellido;
+    	if (lname.length < 3) {
+        	resultValidations += " - Apellido invalido";
+        }
+    	var phone = $scope.customer.telefono;
+        if (isNaN(phone) || phone.length < 5) {
+        	resultValidations += " - Telefono invalido";
+        }
+    	var street = $scope.customer.domicilio;
+    	if (street.length < 3) {
+        	resultValidations += " - Domicilio invalido";
+        }
+    	if (resultValidations == 'Verifique los siguientes campos: ') {
+    		validated = true;
+    	}
+    	
+    	if (validated == true) {
             $http.post("/cliente/", $scope.customer)
                 .then(function (response) {
                     console.log (response);
@@ -191,12 +214,14 @@ app.controller('ClienteController', function($scope, $http, $routeParams) {
  * 
  */
     
-app.controller('ClientemodificarController', function($scope, $http, $routeParams,$location) {
-    
-    $customerid = $routeParams.clientid;
-    $scope.alert = { show: false };
-    $scope.customer = {};
+app.controller('ClientemodificarController', function($scope, $http, $routeParams,$location, DateTimeService) {
 
+	
+	$customerid = $routeParams.clientid;
+	$scope.alert = { show: false };
+    $scope.customer = { 'nombre': '', 'apellido': '', 'telefono': '', 'domicilio': ''};
+	$scope.customer.fechaIngreso = DateTimeService.datetime;
+	
     $scope.init = function () {
 
         $http.get("/cliente/" + $customerid)
@@ -207,14 +232,45 @@ app.controller('ClientemodificarController', function($scope, $http, $routeParam
     }
 
     $scope.save = function() {
-
-        $http.post("/cliente/", $scope.customer)
-            .then(function (response) {
-            	 console.log (response);
-                 $scope.customer = response.data;
-                 $location.path("clientes/" + $scope.customer.id + "/mostrar");
-            });    
-
+    	// validaciones temp
+    	var validated = false;
+    	var resultValidations = 'Verifique los siguientes campos: '
+    		
+    	var name = $scope.customer.nombre;
+    	if (name.length < 3) {
+        	resultValidations += " - Nombre invalido";
+        }
+    	var lname = $scope.customer.apellido;
+    	if (lname.length < 3) {
+        	resultValidations += " - Apellido invalido";
+        }
+    	var phone = $scope.customer.telefono;
+        if (isNaN(phone) || phone.length < 5) {
+        	resultValidations += " - Telefono invalido";
+        }
+    	var street = $scope.customer.domicilio;
+    	if (street.length < 3) {
+        	resultValidations += " - Domicilio invalido";
+        }
+    	if (resultValidations == 'Verifique los siguientes campos: ') {
+    		validated = true;
+    	}
+    	
+    	if (validated == true) {
+	        $http.post("/cliente/", $scope.customer)
+	            .then(function (response) {
+	            	 console.log (response);
+	                 $scope.customer = response.data;
+	                 $location.path("clientes/" + $scope.customer.id + "/mostrar");
+	            });
+    	} else {
+	        	 $scope.alert = { show: true, 
+	                     type: "alert-warning", 
+	                     message: resultValidations, 
+	                     link: "", 
+	                     text: ""
+	                   };    	
+	        }
     }
     
 });

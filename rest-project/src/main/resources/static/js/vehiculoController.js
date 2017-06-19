@@ -123,6 +123,8 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
 
     	$scope.car.fechaDeIngreso = DateTimeService.datetime;
 
+    	
+    	
 		$http.get("/cliente/" + $customerid).then(function(response) {
 			console.log(response);
 			$scope.customer = response.data;
@@ -142,7 +144,28 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
 	}
         
     $scope.create = function() {
-    		$scope.car.cliente = $scope.customer;
+        var validated = false;
+    	var resultValidations = 'Verifique los siguientes campos: '
+    		
+    	var patente = $scope.car.patente;
+    	if (patente.length < 2) {
+        	resultValidations += " - Patente invalido";
+        }
+    	var brand = $scope.car.marca;
+    	if (brand.length < 2) {
+        	resultValidations += " - Marca invalido";
+        }
+    	var model = $scope.car.modelo;
+        if (model.length < 0) {
+        	resultValidations += " - Modelo invalido";
+        }
+    	if (resultValidations == 'Verifique los siguientes campos: ') {
+    		validated = true;
+    	}
+    	
+    	$scope.car.cliente = $scope.customer;
+    	if (validated == true) {
+    	
 	        $http.post("/vehiculo/", $scope.car)
 		        .then(function (response) {
 		        	 console.log (response);
@@ -155,6 +178,14 @@ app.controller('vehiculosAltaController', function($scope, $http, $routeParams, 
 		             $location.path("clientes/" + $scope.customer.id + "/mostrar");
 		         });    
     	    });
+    	} else {
+            $scope.alert = { show: true, 
+                    type: "alert-warning", 
+                    message: resultValidations, 
+                    link: "", 
+                    text: ""
+                  };        		
+    	}
     	}
     
     
